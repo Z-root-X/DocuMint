@@ -26,7 +26,7 @@ DocuMint is a professional, production-ready desktop application for automating 
 
 1.  Clone the repository:
     ```
-    git clone https://github.com/your-username/documint.git
+    git clone https://github.com/Z-root-X/DocuMint.git
     ```
 2.  Navigate to the project directory:
     ```
