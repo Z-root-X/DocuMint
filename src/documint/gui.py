@@ -3,7 +3,7 @@ from tkinter import ttk, filedialog, scrolledtext, messagebox, simpledialog
 import threading
 import json
 import os
-from core import process_emails
+from .core import process_emails
 
 class SettingsWindow(tk.Toplevel):
     """A Toplevel window for configuring advanced settings."""
@@ -205,7 +205,7 @@ Click the ⚙️ icon to configure:
 
     def show_about(self):
         """Shows the about window."""
-        messagebox.showinfo("About DocuMint", "DocuMint\nVersion: 9.0\n\nDeveloped by Gemini")
+        messagebox.showinfo("About DocuMint", "DocuMint\nVersion: 10.0\n\nDeveloped by Gemini")
 
     def show_frame(self, page_name):
         """Shows a frame for the given page name."""

@@ -166,7 +166,7 @@ def process_emails(data_file, template_file, pdf_folder, logs_folder, log_callba
                         "Status": "Success",
                         "Timestamp": datetime.now()
                     })
-                    log_callback(f"SUCCESS: Sent admit card to {email}")
+                    log_callback(f"SUCCESS: Sent document to {email}")
             else:
                 log_callback(f"DRY RUN: Generated PDF for {email}")
                 log_records.append({
