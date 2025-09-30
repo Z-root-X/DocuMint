@@ -58,11 +58,11 @@ Before you begin, ensure you have the following installed:
     python -m venv venv
 
     # Activate the virtual environment
-    # On Windows:
+    # For Windows:
     .\venv\Scripts\activate
-    # On macOS/Linux:
-    # source venv/bin/activate
-
+    # For macOS/Linux:
+    source venv/bin/activate
+```bash
     # Install dependencies
     pip install -r requirements.txt
     ```
@@ -102,7 +102,7 @@ The project includes a batch script (`build.bat`) to create a standalone executa
     ```
 
 2.  **Run the build script**:
-    ```bash
+    ```cmd
     build.bat
     ```
 
