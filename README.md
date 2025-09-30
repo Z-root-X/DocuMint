@@ -40,7 +40,7 @@ Before you begin, ensure you have the following installed:
 
 1.  **Clone the repository** (or download the ZIP and extract it):
     ```bash
-    git clone https://github.com/YOUR_USERNAME/DocuMint.git
+    git clone https://github.com/Z-root-X/DocuMint.git
     cd DocuMint
     ```
     *(Note: Replace `YOUR_USERNAME` with your actual GitHub username or the organization name if you're cloning from a specific source.)*
