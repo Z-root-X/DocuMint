@@ -4,6 +4,7 @@ import time
 import pandas as pd
 from docx import Document
 import win32com.client
+from win32com.client import constants
 from datetime import datetime
 
 def replace_placeholders_in_doc(doc, replacements):
@@ -122,7 +123,7 @@ def process_emails(data_file, template_file, pdf_folder, logs_folder, log_callba
                 word_app = win32com.client.Dispatch("Word.Application")
                 word_app.Visible = False
                 word_doc = word_app.Documents.Open(os.path.abspath(word_filename))
-                word_doc.SaveAs(os.path.abspath(pdf_filename), FileFormat=17)
+                word_doc.SaveAs(os.path.abspath(pdf_filename), FileFormat=constants.wdFormatPDF)
                 word_doc.Close(False)
                 word_app.Quit()
             except Exception as conv_error:
