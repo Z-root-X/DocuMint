@@ -2,7 +2,7 @@
 
 DocuMint is a professional, production-ready desktop application for automating the generation and emailing of personalized documents. It reads data from an Excel file, merges it into a Word template, and sends the resulting PDF via Outlook.
 
-![DocuMint Screenshot](placeholder.png)  <!-- Add a screenshot of the application here -->
+![DocuMint Screenshot](screenshot.png)
 
 ## Features
 
@@ -14,6 +14,13 @@ DocuMint is a professional, production-ready desktop application for automating 
 *   **Configuration Persistence**: Your settings are saved when you close the application and reloaded when you open it again.
 *   **In-App Instructions**: A comprehensive user guide is available within the application.
 *   **Standalone Executable**: A build script is included to create a single executable file for easy distribution.
+
+## Example Files
+
+The `examples` directory contains:
+
+*   `example_data.csv`: An example Excel file with dummy data.
+*   `example_template.txt`: An example Word template with all the available placeholders.
 
 ## Getting Started
 

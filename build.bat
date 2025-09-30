@@ -4,15 +4,17 @@ echo Building DocuMint...
 
 REM Ensure you have PyInstaller installed: pip install pyinstaller
 
-pyinstaller --onefile --windowed --icon=app.ico --name "DocuMint" gui.py
+pyinstaller --onefile --windowed --icon=src\documint\app.ico --name "DocuMint" src\documint\gui.py
 
 echo.
+
 echo =================================================
 echo Build complete!
 
 echo The executable can be found in the 'dist' folder.
 
 echo.
+
 echo Preparing final package...
 
 REM Create a distribution folder
@@ -21,11 +23,11 @@ mkdir .\dist\DocuMint_Package
 
 REM Copy the necessary files to the package folder
 copy .\dist\DocuMint.exe .\dist\DocuMint_Package\
-copy .\example_data.csv .\dist\DocuMint_Package\
-copy .\example_template.txt .\dist\DocuMint_Package\
-copy .\README.txt .\dist\DocuMint_Package\
+xcopy .\examples .\dist\DocuMint_Package\examples\ /E /I
+copy .\README.md .\dist\DocuMint_Package\
 
 echo.
+
 echo =================================================
 echo Final package created in the 'dist\DocuMint_Package' folder.
 
