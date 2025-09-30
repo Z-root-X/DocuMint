@@ -1,10 +1,10 @@
 @echo off
 
-echo Building DocuMint...
+echo Building DocuMint from .spec file...
 
 REM Ensure you have PyInstaller installed: pip install pyinstaller
 
-pyinstaller --onefile --windowed --name "DocuMint" src\documint\gui.py
+pyinstaller DocuMint.spec
 
 echo.
 echo =================================================

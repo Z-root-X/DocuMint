@@ -1,9 +1,18 @@
+import sys
+import os
 import tkinter as tk
 from tkinter import ttk, filedialog, scrolledtext, messagebox, simpledialog
 import threading
 import json
-import os
-from .core import process_emails
+
+# Add the parent directory to the sys.path to allow for relative imports
+# when running as a bundled executable.
+if getattr(sys, 'frozen', False):
+    application_path = sys._MEIPASS
+else:
+    application_path = os.path.dirname(os.path.abspath(__file__))
+
+from core import process_emails
 
 class SettingsWindow(tk.Toplevel):
     """A Toplevel window for configuring advanced settings."""
