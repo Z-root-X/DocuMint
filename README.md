@@ -63,8 +63,10 @@ Before you begin, ensure you have the following installed:
 # For macOS/Linux:
 source venv/bin/activate
 
+```bash
 # Install dependencies
 pip install -r requirements.txt
+```
 ## Usage
 
 Once installed, you can run the application directly from the source code or use the standalone executable if you've built it.
