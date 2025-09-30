@@ -90,7 +90,7 @@ The application's GUI will appear, guiding you through the following steps:
 
 The `examples` directory contains:
 *   `example_data.csv`: A sample Excel-compatible CSV file with dummy data to help you get started.
-*   `example_template.txt`: A sample Word template (you'll need to save this as a `.docx` file) demonstrating placeholder usage.
+*   `example_template.txt`: A sample text file demonstrating placeholder usage. This content should be copied into a new Word document and saved as a `.docx` file to be used as a template.
 
 ## Building a Standalone Executable
 
@@ -115,7 +115,7 @@ The project includes a batch script (`build.bat`) to create a standalone executa
 *   `core.py`: Core logic for document processing, PDF conversion, and email sending.
 *   `gui.py`: Main application file, implementing the `tkinter` GUI.
 *   `LICENSE`: Contains the licensing information for the project (e.g., MIT License).
-*   `README.md`: This comprehensive guide to the project.
+*   `README.md`: The main documentation file for the project.
 *   `requirements.txt`: Lists all Python package dependencies.
 *   `example_template.txt`: A text file demonstrating the structure of a Word template with placeholders.
 *   `examples/`: Directory containing example data and templates.
@@ -142,4 +142,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## Contact
 
-For any questions or inquiries, please open an issue on the GitHub repository.
+For any questions, inquiries, or to report issues, please visit the [GitHub Issues page](https://github.com/Z-root-X/DocuMint/issues).
