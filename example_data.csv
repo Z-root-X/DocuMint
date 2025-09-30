@@ -1,0 +1,4 @@
+ID,Email,Name,Phone,DOB,Age,Father,District,Category,Last_Academic_Degree,Last_Academic_Institute,Current_Academic_Institute,Online_Exam_Score
+101,johndoe@example.com,John Doe,1234567890,1995-01-15,29,Richard Doe,Metropolis,General,Bachelor of Science,Metropolis University,Metropolis University,85
+102,janesmith@example.com,Jane Smith,0987654321,1998-05-20,26,Robert Smith,Gotham,General,Master of Arts,Gotham University,Gotham University,92
+103,peterjones@example.com,Peter Jones,1122334455,1997-11-30,27,David Jones,Star City,OBC,Bachelor of Engineering,Star City College,Star City College,88

@@ -1,0 +1,20 @@
+Admit Card
+
+Candidate ID: <ID>
+Name: <Name>
+Father's Name: <Father>
+
+Date of Birth: <DOB>
+Age: <Age>
+
+Email: <Email>
+Phone: <Phone>
+
+District: <District>
+Category: <Category>
+
+Last Academic Degree: <Last_Academic_Degree>
+Last Academic Institute: <Last_Academic_Institute>
+Current Academic Institute: <Current_Academic_Institute>
+
+Online Exam Score: <Online_Exam_Score>
