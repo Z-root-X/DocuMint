@@ -57,16 +57,14 @@ Before you begin, ensure you have the following installed:
     # Create a virtual environment
     python -m venv venv
 
-    # Activate the virtual environment
-    # For Windows:
-    .\venv\Scripts\activate
-    # For macOS/Linux:
-    source venv/bin/activate
-```bash
-    # Install dependencies
-    pip install -r requirements.txt
-    ```
+# Activate the virtual environment
+# For Windows:
+.\venv\Scripts\activate
+# For macOS/Linux:
+source venv/bin/activate
 
+# Install dependencies
+pip install -r requirements.txt
 ## Usage
 
 Once installed, you can run the application directly from the source code or use the standalone executable if you've built it.
