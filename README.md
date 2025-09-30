@@ -43,11 +43,10 @@ Before you begin, ensure you have the following installed:
     git clone https://github.com/Z-root-X/DocuMint.git
     cd DocuMint
     ```
-    *(Note: Replace `YOUR_USERNAME` with your actual GitHub username or the organization name if you're cloning from a specific source.)*
 
 2.  **Navigate to the project directory**:
     ```bash
-    cd D:\Python_Project\AdmitCardProject
+    cd DocuMint
     ```
     *(Ensure you are in the root directory of the cloned project.)*
 
