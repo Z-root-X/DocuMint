@@ -4,10 +4,9 @@ echo Building DocuMint...
 
 REM Ensure you have PyInstaller installed: pip install pyinstaller
 
-pyinstaller --onefile --windowed --icon=src\documint\app.ico --name "DocuMint" src\documint\gui.py
+pyinstaller --onefile --windowed --name "DocuMint" src\documint\gui.py
 
 echo.
-
 echo =================================================
 echo Build complete!
 
