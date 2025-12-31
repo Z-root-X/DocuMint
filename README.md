@@ -101,8 +101,7 @@ python src/main.py
 <table align="center">
     <tr>
         <td align="center">
-            <a href="https://zihadhasan.web.app"><img src="docs/zihad.png" width="100px;" alt=""/>
-            <br />
+            <a href="https://zihadhasan.web.app">
             <sub><b>Zihad Hasan</b></sub></a>
             <br />
             🚀 <i>Full Stack Engineer</i>
