@@ -1,31 +1,29 @@
-# 🚀 Release v2.0.0
+# Release Notes - v2.0.0
 
-**DocuMint v2.0.0** is a major milestone that transforms the application from a Windows-specific tool into a Universal Document Engine.
+**Release Date:** 2024-01-01
+**Version:** 2.0.0 (Major Release)
 
-## 🌟 Highlights
-*   **Universal Email**: Now supports **Gmail**, **Yahoo**, **Office365**, and any custom SMTP server. You are no longer required to have Outlook installed!
-*   **Pre-Flight Validation**: A new safety engine checks your files before processing. It scans your Word template for placeholders and ensures they exist in your Excel data.
-*   **Modern UI**: A completely redesigned dark-theme interface with "Midnight Blue" and "Emerald Green" accents for a professional look.
-*   **Portable Mode**: Includes a standalone `DocuMint.exe` that runs without Python.
+## 🚀 Introducing Web Studio V4
+This release introduces a fully-featured **Web Interface** (`src/web/app.py`) designed for modern workflows.
 
-## 📋 Full Changelog
+### Key Features
+*   **Universal Email Core**: Send emails via **Gmail, Outlook.com, Yahoo**, or any SMTP provider. Removed dependency on Desktop Outlook.
+*   **Web Dashboard (New!)**:
+    *   **Ultra-Clean UI**: Professional White/Slate design with `Hind Siliguri` (Bangla) typography.
+    *   **Live Preview**: Real-time rendering of your HTML emails before sending.
+    *   **Developer Profile**: Integrated social links for support and networking.
+    *   **Documentation**: Built-in guide at `/docs`.
+*   **Performance**: Optimized `pandas` data processing for large Excel files.
+*   **Visual Integrity**: Added "Pre-flight Validation" to check logical consistency between Excel headers and Word templates.
 
-### Added
-*   `src/documint/core.py`: Added `SMTPSender` class for cross-platform email support.
-*   `src/documint/gui.py`: Added "Validate Files" button and logic.
-*   `src/documint/gui.py`: Added `ToolTip` class for in-app help.
-*   `RELEASE.md`: Added release documentation.
-*   `docs/USER_GUIDE.md`: Comprehensive user manual.
+## 🛠 Enhancements
+*   **Refactored Core**: Split monolithic script into modular `documint` package.
+*   **Modern Build**: Switch to `pyproject.toml` based build system.
+*   **Documentation**: Completely rewritten `README.md` and `USER_GUIDE.md`.
 
-### Changed
-*   **Colors**: Updated branding to Professional Navy/Green palette.
-*   **Structure**: Refactored entire codebase into `src/documint` package.
-*   **Build**: Updated `DocuMint.spec` for reliable .exe generation.
+## � Download
+The standalone Windows executable is available:
+*   [Download DocuMint_Portable.zip](https://github.com/Z-root-X/DocuMint/raw/master/DocuMint_Portable.zip)
 
-### Fixed
-*   Fixed crashing issue when `config.json` was corrupted (added try-except block).
-*   Fixed `pywin32` dependency issues on non-Windows systems (by making imports conditional).
-
-## 📥 Download
-*   **Source Code**: [v2.0.0.zip](https://github.com/Z-root-X/DocuMint/archive/refs/tags/v2.0.0.zip)
-*   **Portable EXE**: [DocuMint_Portable.zip](https://github.com/Z-root-X/DocuMint/raw/master/DocuMint_Portable.zip)
+---
+*Created by [Zihad Hasan](https://zihadhasan.web.app)*

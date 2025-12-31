@@ -1,65 +1,58 @@
-# 📘 DocuMint User Guide
+# User Guide for DocuMint
+*Automated Document Generation System*
 
-Welcome to the comprehensive guide for DocuMint. This document covers advanced usage, troubleshooting, and tips for getting the most out of the application.
-
-## Table of Contents
-1.  [Template Design](#1-template-design)
-2.  [Excel Data Preparation](#2-excel-data-preparation)
-3.  [Email Configuration](#3-email-configuration)
-    *   [Outlook Mode](#outlook-mode)
-    *   [SMTP Mode (Gmail, Yahoo, etc.)](#smtp-mode)
-4.  [Validation & Safety](#4-validation--safety)
+## 1. Quick Start
+DocuMint has two interfaces:
+1.  **Web Studio (Recommended)**: Modern, browser-based interface.
+2.  **Desktop App**: Classic Windows GUI.
 
 ---
 
-## 1. Template Design
-DocuMint uses **Placeholders** to inject data into your Word Documents.
+## 2. Web Studio Guide
+### Step 1: Launch
+1.  Open your terminal in the project folder.
+2.  Run: `python src/web/app.py`
+3.  Go to: `http://localhost:5000`
 
-### Syntax
-Format: `<ColumnHeader>`
+### Step 2: Configure Job
+*   **File Resources**: Paste the full absolute path to your `.xlsx` data file and `.docx` template.
+    *   *Tip: Use the "Check Integrity" button to verify files exist.*
+*   **Email Composer**: Write your email subject and body.
+    *   *Feature: Click "Preview" to see how the HTML body renders.*
+*   **Target Folders**: Specify where to save the generated PDFs.
+*   **Gateway**: Choose **SMTP** (Universal) or **Outlook**.
+    *   *For Gmail: Use App Password, not your login password.*
 
-*   **Example**: If your Excel header is `StudentName`, use `<StudentName>` in the Word doc.
-*   **Styling**: You can bold, color, or change the font of the placeholder in Word. The replaced text will inherit the same style.
-
-> **💡 Pro Tip**: Ensure your placeholders do not contain spaces inside the brackets if your Excel headers don't have them.
-
----
-
-## 2. Excel Data Preparation
-Your data source must be an `.xlsx` or `.xls` file.
-
-*   **Row 1**: Must contain **Headers**. These are the keys for your placeholders.
-*   **Email Column**: One column must contain email addresses. DocuMint defaults to looking for `Email`, `E-mail`, or you can assume the column named `Email` is used by the logic.
-*   **Clean Data**: Ensure there are no empty rows in the middle of your dataset.
-
----
-
-## 3. Email Configuration
-
-### Outlook Mode
-*   **Requirement**: Microsoft Outlook Desktop App installed and logged in.
-*   **Pros**: Uses your existing Outlook signature and sent folder.
-*   **Cons**: Slower, Windows only.
-
-### SMTP Mode
-Allows sending without Outlook. Great for bulk sending from a specific server.
-
-#### Gmail Setup
-1.  **Host**: `smtp.gmail.com`
-2.  **Port**: `465` (SSL)
-3.  **User**: Your full gmail address.
-4.  **Password**: You **cannot** use your normal password. You must generate an **App Password**:
-    *   Go to Google Account > Security.
-    *   Enable 2-Step Verification.
-    *   Search for "App Passwords" and create one for DocuMint.
-    *   Use that 16-character code here.
+### Step 3: Run
+*   Click **Start Engine**.
+*   Monitor the **System Logs** panel at the bottom for real-time status.
 
 ---
 
-## 4. Validation & Safety
-Before running a large batch:
-1.  Load your files.
-2.  Click **Validate Files** in the setup screen.
-3.  DocuMint scans every `<Tag>` in your `.docx`.
-4.  It checks if that `Tag` exists as a column in your `.xlsx`.
-5.  If any are missing, it stops you. **This prevents sending 500 emails with "Dear <Name>" instead of the actual name.**
+## 3. Data Preparation
+### Excel File (.xlsx)
+*   **Row 1 MUST be headers.**
+*   **Required Header**: `Email` (case-insensitive) is required if sending emails.
+*   **Other Headers**: Columns like `Name`, `ID`, `Dept` become variables.
+
+### Word Template (.docx)
+*   Use placeholders formatted as `<HeaderName>`.
+*   Example: `Dear <Name>, your ID is <ID>.`
+*   The system matches `<Name>` in Word to the `Name` column in Excel.
+
+---
+
+## 4. Email Configuration
+### Gmail Setup
+1.  Go to Google Account > Security.
+2.  Enable 2-Factor Authentication.
+3.  Search for "App Passwords".
+4.  Generate a new App Password (select "Mail" and "Windows Computer").
+5.  Use this 16-character code as the **App Password** in DocuMint.
+
+### Outlook Setup
+*   Ensure the "New Outlook" toggle is OFF (Classic Outlook application must be running).
+*   DocuMint will use your default Outlook profile to send emails.
+
+---
+*Created by [Zihad Hasan](https://zihadhasan.web.app)*

@@ -77,6 +77,19 @@ Stop doing manual mail merge. DocuMint brings **Engineering Standards** to docum
 git clone https://github.com/Z-root-X/DocuMint.git
 cd DocuMint
 pip install .
+```
+### Option 1: Web Studio (Recommended)
+The new web interface offers a premium experience with Live Preview.
+
+1.  Run the web server:
+    ```bash
+    python src/web/app.py
+    ```
+2.  Open **[http://localhost:5000](http://localhost:5000)** in your browser.
+
+### Option 2: Desktop App
+Run the classic desktop GUI:
+```bash
 python src/main.py
 ```
 
