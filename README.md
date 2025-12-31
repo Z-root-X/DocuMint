@@ -1,145 +1,98 @@
-# DocuMint - Personalized Document Generation and Email Automation
+# 🍃 DocuMint
 
-## Project Overview
+> **The Universal Document Automation Engine.**  
+> *Batch Generate. Convert. Distribute.*
 
-DocuMint is a robust and user-friendly desktop application designed to automate the process of generating personalized documents and distributing them via email. It streamlines workflows that involve merging data from an Excel spreadsheet into a Word document template, converting the resulting documents to PDF, and then sending these PDFs as email attachments through Microsoft Outlook.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Platform](https://img.shields.io/badge/platform-windows%20%7C%20linux-lightgrey.svg)]()
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
-This application is ideal for tasks such as:
-*   Generating personalized admit cards for students.
-*   Creating custom certificates or letters.
-*   Distributing individualized reports or statements.
+---
 
-## Features
+## 🌟 Overview
 
-*   **Dynamic Placeholders**: Utilize any column header from your Excel data file as a placeholder (e.g., `<Name>`, `<ID>`, `<Course>`) directly within your Word document template. The application intelligently replaces these placeholders with corresponding data for each recipient.
-*   **Intuitive Graphical User Interface (GUI)**: A modern, wizard-style interface built with `tkinter` guides users through the entire process, from file selection to email configuration and execution.
-*   **Automated PDF Conversion**: Seamlessly converts the generated Word documents (.docx) into universally viewable PDF files.
-*   **Outlook Email Integration**: Leverages Microsoft Outlook to send personalized emails, attaching the generated PDF documents to the respective recipients.
-*   **Configurable Settings**: Advanced settings allow users to customize:
-    *   **PDF Filename Format**: Define dynamic filenames for generated PDFs using placeholders (e.g., `AdmitCard_{<StudentID>}_{<LastName>}.pdf`).
-    *   **Email Retries**: Specify the number of attempts to resend an email if the initial attempt fails.
-    *   **Email Delay**: Set a delay (in seconds) between sending emails to prevent overwhelming mail servers or hitting rate limits.
-*   **Configuration Persistence**: User settings are automatically saved and reloaded upon application restart, ensuring a consistent experience.
-*   **Comprehensive Logging**: Provides real-time feedback and logs the status of each document generation and email sending operation.
-*   **Standalone Executable**: Includes a build script (`build.bat`) to create a single, portable executable file for easy distribution without requiring Python installation on target machines.
+**DocuMint** is an industrial-grade automation tool designed to eliminate manual document workflows. Whether you are a university issuing admit cards, a company sending generated contracts, or an event organizer distributing tickets, DocuMint orchestrates the entire process.
 
-## Getting Started
+It seamlessly integrates **Excel Datasources**, **Word Templates**, and **Universal Email Protocols** (SMTP/Outlook) into a single, reliable pipeline.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+---
 
-### Prerequisites
+## ✨ Key Features
 
-Before you begin, ensure you have the following installed:
+### 🚄 **Core Engine**
+*   **Dynamic Placeholders**: Inject data into your documents using simple tags like `<Name>` or `<Department>`.
+*   **Universal Email**: Native support for **Gmail**, **Yahoo**, **Office365** (SMTP), and legacy **Outlook Desktop** automation.
+*   **Smart Conversion**: High-fidelity `.docx` to `.pdf` conversion pipeline.
 
-*   **Python 3.x**: Download and install from [python.org](https://www.python.org/downloads/).
-*   **Microsoft Outlook**: Required for sending emails.
-*   **Microsoft Word**: Required for document template processing and PDF conversion.
-*   **Git**: For cloning the repository (optional, you can also download the ZIP).
+### 🛡️ **Reliability & Safety**
+*   **Pre-Flight Validation**: The `Validate Files` engine scans your templates against your data before execution, preventing batch failures.
+*   **Resilience**: Built-in retry mechanisms and delay throttling to respect API rate limits.
+*   **Detailed Logging**: Comprehensive audit trails generated in Excel format.
 
-### Installation
+### 🎨 **User Experience**
+*   **Modern UI**: A responsive, dark-themed interface designed for professionals.
+*   **Profiles**: Intelligent configuration persistence—pick up exactly where you left off.
+*   **Standalone**: Deploy as a single portable `.exe` file. No Python installation required.
 
-1.  **Clone the repository** (or download the ZIP and extract it):
-    ```bash
-    git clone https://github.com/Z-root-X/DocuMint.git
-    cd DocuMint
-    ```
+---
 
-2.  **Navigate to the project directory**:
-    ```bash
-    cd DocuMint
-    ```
-    *(Ensure you are in the root directory of the cloned project.)*
+## � Quick Start
 
-3.  **Install the required Python libraries**:
-    It's highly recommended to use a virtual environment to manage dependencies.
+### 1. Installation
 
-    ```bash
-    # Create a virtual environment
-    python -m venv venv
+**Option A: Standalone Executable (Windows)**
+Download the latest release, unzip, and run `DocuMint.exe`.
 
-# Activate the virtual environment
-# For Windows:
-.\venv\Scripts\activate
-# For macOS/Linux:
-source venv/bin/activate
-
+**Option B: Python Source**
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-```
-## Usage
-
-Once installed, you can run the application directly from the source code or use the standalone executable if you've built it.
-
-### Running from Source
-
-To launch the application, execute the `gui.py` script:
-
-```bash
-# Ensure your virtual environment is activated
-python gui.py
+git clone https://github.com/Z-root-X/DocuMint.git
+cd DocuMint
+pip install .
 ```
 
-The application's GUI will appear, guiding you through the following steps:
-
-1.  **File Setup**: Select your Excel data file, Word template file, and specify output folders for PDFs and logs.
-2.  **Email Customization**: Define the email subject and body (HTML supported) for the personalized emails.
-3.  **Review & Run**: Review your settings, perform a dry run, send a test email, or start the full process.
-
-### Example Files
-
-The `examples` directory contains:
-*   `example_data.csv`: A sample Excel-compatible CSV file with dummy data to help you get started.
-*   `example_template.txt`: A sample text file demonstrating placeholder usage. This content should be copied into a new Word document and saved as a `.docx` file to be used as a template.
-
-## Building a Standalone Executable
-
-The project includes a batch script (`build.bat`) to create a standalone executable using `PyInstaller`. This allows you to distribute the application without requiring the end-user to install Python or its dependencies.
-
-1.  **Install PyInstaller** (if you haven't already):
+### 2. Your First Job
+1.  **Prepare Data**: Create an Excel file (`data.xlsx`) with columns like `Name`, `Email`, `ID`.
+2.  **Prepare Template**: Create a Word doc (`template.docx`) and use tags like `<Name>` where you want data to appear.
+3.  **Run DocuMint**:
     ```bash
-    pip install pyinstaller
+    python src/main.py
     ```
+4.  **Configure**: Select your files.
+5.  **Validate**: Click **"Validate Files"** to ensure all tags match your Excel headers.
+6.  **Launch**: Go to the Run tab and click **Start Process**.
 
-2.  **Run the build script**:
-    ```cmd
-    build.bat
-    ```
+---
 
-    This script will generate the executable and all necessary dependencies in the `dist/DocuMint_Package` folder within your project directory.
+## 📚 Documentation
 
-## Project Structure (Detailed)
+Detailed guides are available in the [docs](docs/) directory:
 
-*   `.gitignore`: Specifies intentionally untracked files to ignore.
-*   `build.bat`: Batch script for building the standalone executable.
-*   `core.py`: Core logic for document processing, PDF conversion, and email sending.
-*   `gui.py`: Main application file, implementing the `tkinter` GUI.
-*   `LICENSE`: Contains the licensing information for the project (e.g., MIT License).
-*   `README.md`: The main documentation file for the project.
-*   `requirements.txt`: Lists all Python package dependencies.
-*   `example_template.txt`: A text file demonstrating the structure of a Word template with placeholders.
-*   `examples/`: Directory containing example data and templates.
-    *   `example_data.csv`: Sample data for testing the application.
-*   `venv/`: (Ignored by Git) Python virtual environment for dependency management.
-*   `__pycache__/`: (Ignored by Git) Python compiled bytecode cache.
-*   `build/`: (Ignored by Git) Temporary directory used by PyInstaller during the build process.
-*   `dist/`: (Ignored by Git) Output directory for the standalone executable.
+*   [� User Guide](docs/USER_GUIDE.md): Deep dive into advanced configuration, SMTP setup, and template design.
+*   [💻 Developer Guide](CONTRIBUTING.md): How to build, test, and contribute.
 
-## Contributing
+---
 
-Contributions are welcome! If you have suggestions for improvements, bug reports, or want to add new features, please feel free to:
+## ⚙️ Configuration Hints
 
-1.  Fork the repository.
-2.  Create a new branch (`git checkout -b feature/YourFeature`).
-3.  Make your changes.
-4.  Commit your changes (`git commit -m 'Add some feature'`).
-5.  Push to the branch (`git push origin feature/YourFeature`).
-6.  Open a Pull Request.
+| Setting | Description |
+| :--- | :--- |
+| **PDF Format** | Define output filenames like `Card_{<ID>}_{<Name>}`. |
+| **SMTP Host** | e.g. `smtp.gmail.com` for Gmail (Port 465 or 587). |
+| **Delay** | Seconds to wait between emails. Recommended `2` seconds to avoid spam filters. |
 
-## License
+---
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+## 🤝 Contributing
 
-## Contact
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-For any questions, inquiries, or to report issues, please visit the [GitHub Issues page](https://github.com/Z-root-X/DocuMint/issues).
+## �‍💻 Created By
+
+**Zihad Hasan**  
+🚀 *Full Stack Developer | Python Expert*  
+🌐 Portfolio: [zihadhasan.web.app](https://zihadhasan.web.app)
+
+## �📄 License
+
+Copyright © 2025. Released under the [MIT License](LICENSE).

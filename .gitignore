@@ -25,7 +25,7 @@ wheels/
 
 # PyInstaller
 #  Usually these files are written by a CI service; they should not be committed.
-*.spec
+
 
 # Installer logs
 pip-log.txt

@@ -1,35 +1,26 @@
 @echo off
+echo =================================================
+echo        DocuMint Build Script
+echo =================================================
 
-echo Building DocuMint from .spec file...
+REM Check if PyInstaller is installed
+python -c "import PyInstaller" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo PyInstaller not found. Installing...
+    pip install pyinstaller
+)
 
-REM Ensure you have PyInstaller installed: pip install pyinstaller
-
-pyinstaller DocuMint.spec
+echo.
+echo Building executable...
+pyinstaller DocuMint.spec --clean --noconfirm
 
 echo.
 echo =================================================
-echo Build complete!
-
-echo The executable can be found in the 'dist' folder.
-
-echo.
-
-echo Preparing final package...
-
-REM Create a distribution folder
-if exist .\dist\DocuMint_Package rmdir /s /q .\dist\DocuMint_Package
-mkdir .\dist\DocuMint_Package
-
-REM Copy the necessary files to the package folder
-copy .\dist\DocuMint.exe .\dist\DocuMint_Package\
-xcopy .\examples .\dist\DocuMint_Package\examples\ /E /I
-copy .\README.md .\dist\DocuMint_Package\
-
-echo.
-
+if exist "dist\DocuMint\DocuMint.exe" (
+    echo Build SUCCESS!
+    echo Executable location: dist\DocuMint\DocuMint.exe
+) else (
+    echo Build FAILED. Check errors above.
+)
 echo =================================================
-echo Final package created in the 'dist\DocuMint_Package' folder.
-
-echo You can now zip the 'DocuMint_Package' folder and distribute it.
-
 pause
