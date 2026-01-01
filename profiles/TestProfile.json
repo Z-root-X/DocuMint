@@ -1,0 +1,11 @@
+{
+    "data_path": "",
+    "template_path": "",
+    "pdf_folder": "",
+    "subject": "Profile Test Subject",
+    "body": "Profile Test Body",
+    "provider": "smtp",
+    "smtp_host": "smtp.gmail.com",
+    "smtp_user": "",
+    "smtp_pass": ""
+}

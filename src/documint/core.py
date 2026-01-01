@@ -272,36 +272,53 @@ def process_emails(
         df = pd.DataFrame([dummy_data])
 
     # 4. Processing Loop
-    for index, row in df.iterrows():
+    # 4. Processing Loop
+    import concurrent.futures
+    
+    # Helper to process a single row
+    def process_row(args):
+        index, row = args
+        local_logs = []
         try:
             email = str(row.get("Email", "")).strip()
             if not is_valid_email(email):
-                _log_status(log_records, row, email, "Failed: Invalid Email Format")
                 log_callback(f"⚠️ Skipped invalid email: {email}")
-                continue
+                return [{"Name": str(row.get("Name", "N/A")).strip(), "Email": email, "Status": "Failed: Invalid Email", "Timestamp": datetime.now()}]
 
             replacements = {f"<{col}>": str(val).strip() for col, val in row.items()}
             
             # A. Generate Word Doc
             filename = pdf_filename_format.format(**replacements)
-            # Sanitize filename
             filename = "".join(c for c in filename if c.isalnum() or c in (' ', '_', '-'))
             
             word_path = os.path.join(pdf_folder, f"{filename}.docx")
             pdf_path = os.path.join(pdf_folder, f"{filename}.pdf")
 
+            # Word operations must be main thread or carefully managed if using COM
+            # Since we are using WinWordConverter (COM), we MUST be careful.
+            # COM and Threads don't mix well without CoInitialize.
+            # Strategy: Generate DOCX is pure python-docx (Safe).
+            # Convert to PDF via COM (Unsafe in threads without care).
+            
             doc = Document(template_file)
             replace_placeholders_in_doc(doc, replacements)
             doc.save(word_path)
 
             # B. Convert to PDF
             try:
+                # If threading, we need CoInitialize for COM
+                if isinstance(doc_converter, WinWordConverter):
+                    import pythoncom
+                    pythoncom.CoInitialize()
+                    
                 doc_converter.convert_to_pdf(word_path, pdf_path)
             except Exception as e:
-                _log_status(log_records, row, email, f"Conversion Error: {e}")
-                log_callback(f"❌ PDF Conv Error for {email}")
-                continue
+                log_callback(f"❌ PDF Conv Error for {email}: {e}")
+                return [{"Name": str(row.get("Name", "N/A")).strip(), "Email": email, "Status": f"Conversion Error: {e}", "Timestamp": datetime.now()}]
             finally:
+                if isinstance(doc_converter, WinWordConverter):
+                    import pythoncom
+                    pythoncom.CoUninitialize()
                 if os.path.exists(word_path):
                     os.remove(word_path)
 
@@ -309,7 +326,6 @@ def process_emails(
             if not dry_run and email_sender:
                 sent = False
                 
-                # Dynamic Variable Substitution in Body and Subject
                 final_body = email_body
                 final_subject = email_subject
                 for k, v in replacements.items():
@@ -328,17 +344,42 @@ def process_emails(
                             raise e
                 
                 if sent:
-                    _log_status(log_records, row, email, "Success")
                     log_callback(f"✅ Sent to {email}")
+                    return [{"Name": str(row.get("Name", "N/A")).strip(), "Email": email, "Status": "Success", "Timestamp": datetime.now()}]
             else:
-                _log_status(log_records, row, email, "Dry Run - Generated")
                 log_callback(f"📝 Generated PDF for {email} (Dry Run)")
+                return [{"Name": str(row.get("Name", "N/A")).strip(), "Email": email, "Status": "Dry Run", "Timestamp": datetime.now()}]
 
             time.sleep(delay)
+            return [{"Name": str(row.get("Name", "N/A")).strip(), "Email": email, "Status": "Success", "Timestamp": datetime.now()}]
 
         except Exception as e:
-            _log_status(log_records, row, row.get("Email", "N/A"), f"Error: {e}")
             log_callback(f"❌ Error processing row {index}: {e}")
+            return [{"Name": str(row.get("Name", "N/A")).strip(), "Email": email, "Status": f"Error: {e}", "Timestamp": datetime.now()}]
+
+    # Execution Strategy
+    # If SMTP, we can use threads (faster).
+    # If Outlook, we MUST use main thread (serial) or single threaded due to COM.
+    
+    use_threading = False
+    if email_config and email_config.get("provider") == "smtp":
+        use_threading = True
+        
+    rows = [(i, r) for i, r in df.iterrows()]
+    
+    if use_threading:
+        log_callback("🚀 Speed Mode: Parallel Execution Enabled (SMTP)")
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            results = executor.map(process_row, rows)
+            for res in results:
+                log_records.extend(res)
+    else:
+        log_callback("⚠️ Standard Mode: Serial Execution (Outlook requires this)")
+        for args in rows:
+            res = process_row(args)
+            log_records.extend(res)
+
+    # 5. Save Logs
 
     # 5. Save Logs
     try:

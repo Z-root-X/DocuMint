@@ -69,7 +69,7 @@
                 <i class="fa-solid fa-file-contract"></i>
             </div>
             <span class="text-lg font-bold text-slate-900 tracking-tight">DocuMint</span>
-            <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-100 text-xs font-semibold text-slate-500">v2.0</span>
+            <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-100 text-xs font-semibold text-slate-500">v2.1</span>
         </div>
 
         <!-- Menu -->
@@ -160,10 +160,20 @@
                         <h3 class="font-semibold text-slate-800 flex items-center gap-2">
                             <i class="fa-solid fa-folder-open text-blue-500"></i> File Resources
                         </h3>
-                        <button onclick="validateFiles()"
-                            class="text-xs font-medium text-slate-500 hover:text-blue-600 transition flex items-center gap-1">
-                            <i class="fa-solid fa-check-circle"></i> Check Integrity
-                        </button>
+                        <div class="flex items-center gap-3">
+                            <select id="profileSelect" onchange="loadProfile(this.value)"
+                                class="text-xs border border-slate-200 rounded px-2 py-1 outline-none text-slate-600">
+                                <option value="">Load Profile...</option>
+                            </select>
+                            <button onclick="saveProfile()"
+                                class="text-xs font-medium text-blue-600 hover:text-blue-800 transition flex items-center gap-1">
+                                <i class="fa-solid fa-save"></i> Save Profile
+                            </button>
+                            <button onclick="validateFiles()"
+                                class="text-xs font-medium text-slate-500 hover:text-blue-600 transition flex items-center gap-1 border-l border-slate-200 pl-3">
+                                <i class="fa-solid fa-check-circle"></i> Check Integrity
+                            </button>
+                        </div>
                     </div>
                     <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -270,17 +280,52 @@
 
                 </div>
 
-                <!-- Terminal -->
-                <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 overflow-hidden">
+                <!-- Terminal & Analytics -->
+                <div class="bg-slate-900 rounded-xl shadow-lg border border-slate-800 overflow-hidden relative">
                     <div class="px-4 py-2 border-b border-slate-800 bg-slate-950 flex justify-between items-center">
-                        <span class="text-xs font-mono font-bold text-slate-500 uppercase">System Logs</span>
+                        <div class="flex gap-4">
+                            <button onclick="toggleLogs('console')" id="btnConsole"
+                                class="text-xs font-mono font-bold text-white uppercase border-b-2 border-blue-500 pb-0.5">System
+                                Logs</button>
+                            <button onclick="toggleLogs('analytics')" id="btnAnalytics"
+                                class="text-xs font-mono font-bold text-slate-500 uppercase pb-0.5 hover:text-slate-300">Analytics</button>
+                        </div>
                         <div class="flex gap-1.5">
                             <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
                             <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
                         </div>
                     </div>
+
+                    <!-- Console View -->
                     <div id="console" class="p-4 h-48 overflow-y-auto font-mono text-xs space-y-1 text-slate-400">
                         <div class="text-slate-600"># System Ready...</div>
+                    </div>
+
+                    <!-- Analytics View -->
+                    <div id="analytics" class="hidden p-4 h-48 overflow-y-auto bg-slate-900">
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                                <div class="text-slate-400 text-xs uppercase mb-1">Total Jobs</div>
+                                <div class="text-2xl font-bold text-white" id="statTotalJobs">-</div>
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                                <div class="text-slate-400 text-xs uppercase mb-1">Total Emails</div>
+                                <div class="text-2xl font-bold text-blue-400" id="statTotalEmails">-</div>
+                            </div>
+                        </div>
+                        <table class="w-full text-left text-xs text-slate-400">
+                            <thead class="text-slate-500 border-b border-slate-700">
+                                <tr>
+                                    <th class="pb-2">Time</th>
+                                    <th class="pb-2">Mode</th>
+                                    <th class="pb-2 text-right">Sent</th>
+                                    <th class="pb-2 text-right">Success</th>
+                                </tr>
+                            </thead>
+                            <tbody id="statTable" class="font-mono">
+                                <!-- Rows injected by JS -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -423,6 +468,130 @@
             } catch (e) {
                 log("Critical Error: " + e, 'error');
             }
+        }
+
+        // --- Profile Management ---
+        async function fetchProfiles() {
+            try {
+                const res = await fetch('/api/profiles');
+                const data = await res.json();
+                const sel = document.getElementById('profileSelect');
+                sel.innerHTML = '<option value="">Load Profile...</option>';
+                data.profiles.forEach(p => {
+                    sel.innerHTML += `<option value="${p}">${p.replace('.json', '')}</option>`;
+                });
+            } catch (e) { console.error(e); }
+        }
+
+        // Load profiles on startup
+        fetchProfiles();
+
+        async function saveProfile() {
+            const name = prompt("Enter profile name (e.g., 'Student Cards'):");
+            if (!name) return;
+
+            const config = {
+                data_path: document.getElementById('dataPath').value,
+                template_path: document.getElementById('templatePath').value,
+                pdf_folder: document.getElementById('pdfFolder').value,
+                subject: document.getElementById('subject').value,
+                body: document.getElementById('body').value,
+                provider: document.getElementById('provider').value,
+                smtp_host: document.getElementById('host').value,
+                smtp_user: document.getElementById('user').value,
+                smtp_pass: document.getElementById('pass').value
+            };
+
+            try {
+                const res = await fetch('/api/profiles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, config: config })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    alert('Profile Saved!');
+                    fetchProfiles(); // Refresh list
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (e) { alert('Save Failed: ' + e); }
+        }
+
+        async function loadProfile(filename) {
+            if (!filename) return;
+            try {
+                const res = await fetch('/api/profiles/' + filename);
+                const config = await res.json();
+
+                document.getElementById('dataPath').value = config.data_path || "";
+                document.getElementById('templatePath').value = config.template_path || "";
+                document.getElementById('pdfFolder').value = config.pdf_folder || "";
+                document.getElementById('subject').value = config.subject || "";
+                document.getElementById('body').value = config.body || "";
+
+                if (config.provider) {
+                    document.getElementById('provider').value = config.provider;
+                    toggleSMTP();
+                }
+
+                document.getElementById('host').value = config.smtp_host || "";
+                document.getElementById('user').value = config.smtp_user || "";
+                document.getElementById('pass').value = config.smtp_pass || "";
+
+                log(`Loaded profile: ${filename}`, 'info');
+                updatePreview();
+
+            } catch (e) { log('Load Failed: ' + e, 'error'); }
+        }
+
+        // --- Analytics ---
+        function toggleLogs(view) {
+            const consoleDiv = document.getElementById('console');
+            const analyticsDiv = document.getElementById('analytics');
+            const btnConsole = document.getElementById('btnConsole');
+            const btnAnalytics = document.getElementById('btnAnalytics');
+
+            if (view === 'console') {
+                consoleDiv.classList.remove('hidden');
+                analyticsDiv.classList.add('hidden');
+                btnConsole.classList.add('text-white', 'border-blue-500');
+                btnConsole.classList.remove('text-slate-500', 'border-transparent');
+                btnAnalytics.classList.add('text-slate-500');
+                btnAnalytics.classList.remove('text-white', 'border-blue-500');
+            } else {
+                consoleDiv.classList.add('hidden');
+                analyticsDiv.classList.remove('hidden');
+                btnAnalytics.classList.add('text-white', 'border-blue-500');
+                btnAnalytics.classList.remove('text-slate-500');
+                btnConsole.classList.add('text-slate-500');
+                btnConsole.classList.remove('text-white', 'border-blue-500');
+                loadAnalytics();
+            }
+        }
+
+        async function loadAnalytics() {
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+
+                document.getElementById('statTotalJobs').innerText = data.summary.total_jobs || 0;
+                document.getElementById('statTotalEmails').innerText = data.summary.total_emails || 0;
+
+                const table = document.getElementById('statTable');
+                table.innerHTML = "";
+                data.recent.forEach(job => {
+                    const date = new Date(job.timestamp).toLocaleString();
+                    table.innerHTML += `
+                                <tr class="border-b border-slate-800 last:border-0 hover:bg-slate-800/50">
+                                    <td class="py-2 text-slate-500">${date.split(',')[1]}</td>
+                                    <td class="py-2">${job.mode}</td>
+                                    <td class="py-2 text-right">${job.total_items}</td>
+                                    <td class="py-2 text-right text-emerald-400">${job.success_count}</td>
+                                </tr>
+                            `;
+                });
+            } catch (e) { console.error("Stats Error:", e); }
         }
     </script>
 </body>
