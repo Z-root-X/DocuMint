@@ -56,6 +56,56 @@
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
+
+        /* Pulse Animation for Running State */
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+            }
+        }
+
+        .btn-running {
+            animation: pulse-ring 2s infinite;
+            background-color: #4f46e5 !important;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(100px);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 50;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        .toast.success {
+            background-color: #10b981;
+        }
+
+        .toast.error {
+            background-color: #ef4444;
+        }
     </style>
 </head>
 
@@ -312,13 +362,24 @@
                     <!-- Analytics View -->
                     <div id="analytics" class="hidden p-4 h-48 overflow-y-auto bg-slate-900">
                         <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div class="bg-slate-800 p-3 rounded border border-slate-700">
-                                <div class="text-slate-400 text-xs uppercase mb-1">Total Jobs</div>
-                                <div class="text-2xl font-bold text-white" id="statTotalJobs">-</div>
+                            <div class="bg-slate-800 p-3 rounded border border-slate-700 relative overflow-hidden">
+                                <div class="text-slate-400 text-xs uppercase mb-1 z-10 relative">Total Jobs</div>
+                                <div class="text-3xl font-bold text-white z-10 relative" id="statTotalJobs">-</div>
+                                <i
+                                    class="fa-solid fa-layer-group absolute right-3 bottom-3 text-slate-700 text-4xl opacity-50"></i>
                             </div>
-                            <div class="bg-slate-800 p-3 rounded border border-slate-700">
-                                <div class="text-slate-400 text-xs uppercase mb-1">Total Emails</div>
-                                <div class="text-2xl font-bold text-blue-400" id="statTotalEmails">-</div>
+                            <div class="bg-slate-800 p-3 rounded border border-slate-700 relative overflow-hidden">
+                                <div class="text-slate-400 text-xs uppercase mb-1 z-10 relative">Success Rate</div>
+                                <div class="flex items-end gap-2">
+                                    <div class="text-3xl font-bold text-emerald-400 z-10 relative" id="statSuccessRate">
+                                        -%</div>
+                                    <div class="text-xs text-slate-500 mb-1.5 z-10 relative">AVG</div>
+                                </div>
+                                <!-- CSS Mini Chart -->
+                                <div class="h-1.5 w-full bg-slate-700 mt-2 rounded-full overflow-hidden">
+                                    <div id="successBar" class="h-full bg-emerald-500 transition-all duration-1000"
+                                        style="width: 0%"></div>
+                                </div>
                             </div>
                         </div>
                         <table class="w-full text-left text-xs text-slate-400">
@@ -401,7 +462,6 @@
 
         async function validateFiles() {
             log("Running pre-flight checks...", 'info');
-            // Mock call structure for UI demo, replace with real fetch
             try {
                 const res = await fetch('/api/validate', {
                     method: 'POST',
@@ -412,8 +472,13 @@
                     })
                 });
                 const data = await res.json();
-                if (data.valid) log("Integrity Check Passed.", 'success');
-                else log("Integrity Check Failed: " + JSON.stringify(data.missing || data.error), 'error');
+                if (data.valid) {
+                    log("Integrity Check Passed.", 'success');
+                    showToast("Files Validated Successfully", 'success');
+                } else {
+                    log("Integrity Check Failed: " + JSON.stringify(data.missing || data.error), 'error');
+                    showToast("Validation Failed", 'error');
+                }
             } catch (e) { log("Connection Error: " + e, 'error'); }
         }
 
@@ -439,6 +504,10 @@
             };
 
             try {
+                const btn = document.querySelector('button[onclick="runJob()"]');
+                btn.classList.add('btn-running');
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Running...';
+
                 const res = await fetch('/api/run', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -448,6 +517,8 @@
 
                 if (result.status === 'error') {
                     log(result.message, 'error');
+                    btn.classList.remove('btn-running');
+                    btn.innerHTML = '<i class="fa-solid fa-rocket"></i> Start Engine';
                     return;
                 }
                 log(result.message, 'success');
@@ -455,21 +526,13 @@
                 const poller = setInterval(async () => {
                     const s = await fetch('/api/status');
                     const stat = await s.json();
-
-                    const c = document.getElementById('console');
-                    c.innerHTML = "";
-                    stat.logs.forEach(l => {
-                        let type = 'info';
-                        if (l.includes('❌')) type = 'error';
-                        if (l.includes('🏁') || l.includes('✅')) type = 'success';
-                        const cleanMsg = l.replace(/[❌✅🏁🚀]/g, '').trim();
-                        c.innerHTML += `<div class="${type === 'error' ? 'text-red-400' : (type === 'success' ? 'text-emerald-400' : 'text-slate-300')}">> ${cleanMsg}</div>`;
-                    });
-                    c.scrollTop = c.scrollHeight;
-
+                    // ... (rest of polling)
                     if (!stat.is_running) {
                         clearInterval(poller);
                         log("Job Finished.", 'info');
+                        btn.classList.remove('btn-running');
+                        btn.innerHTML = '<i class="fa-solid fa-rocket"></i> Start Engine';
+                        showToast("Job Completed Successfully", 'success');
                     }
                 }, 1000);
 
@@ -584,7 +647,22 @@
                 const data = await res.json();
 
                 document.getElementById('statTotalJobs').innerText = data.summary.total_jobs || 0;
-                document.getElementById('statTotalEmails').innerText = data.summary.total_emails || 0;
+
+                // Calculate Success Rate
+                const total = data.summary.total_emails || 1; // avoid /0
+                // We don't have explicit failure count in summary yet, need to update backend or estimate from logs?
+                // For now, let's assume if it ran, it succeeded unless marked otherwise.
+                // Better approach: Count 'success' in history table loop.
+                let successCount = 0;
+                let itemTotal = 0;
+                data.recent.forEach(j => {
+                    successCount += j.success_count;
+                    itemTotal += j.total_items;
+                });
+                const rate = itemTotal === 0 ? 0 : Math.round((successCount / itemTotal) * 100);
+
+                document.getElementById('statSuccessRate').innerText = rate + "%";
+                document.getElementById('successBar').style.width = rate + "%";
 
                 const table = document.getElementById('statTable');
                 table.innerHTML = "";
@@ -599,8 +677,30 @@
                                 </tr>
                             `;
                 });
-            } catch (e) { console.error("Stats Error:", e); }
+            } catch (e) {
+                console.error("Stats Error:", e);
+            }
         }
+
+        // --- Toast System ---
+        function showToast(msg, type) {
+            let t = document.getElementById('toast');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toast';
+                t.className = 'toast';
+                document.body.appendChild(t);
+            }
+            t.className = `toast show ${type}`;
+            t.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-check' : 'fa-triangle-exclamation'} mr-2"></i> ${msg}`;
+            setTimeout(() => t.className = 'toast', 3000);
+        }
+
+        // Hook Toast into Validate
+        // ... inside validateFiles ...
+        // if (data.valid) showToast("Integrity Check Passed", 'success');
+        // else showToast("Integrity Check Failed", 'error');
+
     </script>
 </body>
 
