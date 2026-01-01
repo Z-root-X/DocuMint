@@ -1,6 +1,7 @@
 import os
 import sys
 import threading
+import pythoncom
 from flask import Flask, render_template, request, jsonify, send_from_directory
 
 # Add the src directory to path so we can import documint.core
@@ -60,6 +61,8 @@ def run_job():
     job_status["logs"] = ["🚀 Job Started..."]
     
     def background_task():
+        # Initialize COM for Outlook on this thread
+        pythoncom.CoInitialize()
         try:
             process_emails(
                 data_file=data['data_path'],
@@ -80,6 +83,7 @@ def run_job():
         finally:
             job_status["is_running"] = False
             log_callback("🏁 Job Finished.")
+            pythoncom.CoUninitialize()
 
     thread = threading.Thread(target=background_task)
     thread.start()

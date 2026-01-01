@@ -308,9 +308,17 @@ def process_emails(
             # C. Send Email
             if not dry_run and email_sender:
                 sent = False
+                
+                # Dynamic Variable Substitution in Body and Subject
+                final_body = email_body
+                final_subject = email_subject
+                for k, v in replacements.items():
+                    final_body = final_body.replace(k, str(v))
+                    final_subject = final_subject.replace(k, str(v))
+
                 for attempt in range(retries + 1):
                     try:
-                        email_sender.send_email(email, email_subject, email_body.format(**replacements), [pdf_path])
+                        email_sender.send_email(email, final_subject, final_body, [pdf_path])
                         sent = True
                         break
                     except Exception as e:

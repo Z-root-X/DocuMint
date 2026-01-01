@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #ec4899);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .content {
+            padding: 40px;
+            color: #374151;
+        }
+
+        .welcome {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .value {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .footer {
+            background: #f9fafb;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #111827;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OFFICIAL NOTIFICATION</h1>
+            <p>DocuMint Automation System</p>
+        </div>
+        <div class="content">
+            <p class="welcome">Hello <span style="color: #4f46e5; font-weight: bold;">
+                    <Name>
+                </span>,</p>
+            <p>We are pleased to inform you that your profile has been successfully processed by our automated engine.
+            </p>
+
+            <div class="card">
+                <div class="data-row">
+                    <span class="label">Employee ID</span>
+                    <span class="value">
+                        <ID>
+                    </span>
+                </div>
+                <div class="data-row">
+                    <span class="label">Department</span>
+                    <span class="value">
+                        <Department>
+                    </span>
+                </div>
+                <div class="data-row">
+                    <span class="label">Date</span>
+                    <span class="value">2024-01-01</span>
+                </div>
+            </div>
+
+            <p style="text-align: center;">
+                <a href="#" class="btn">Access Dashboard</a>
+            </p>
+        </div>
+        <div class="footer">
+            &copy; 2024 DocuMint Inc. All rights reserved.<br>
+            Sent via DocuMint Automation
+        </div>
+    </div>
+</body>
+
+</html>
