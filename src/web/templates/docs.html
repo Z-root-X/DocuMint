@@ -110,7 +110,8 @@
                             3</div>
                         <h3 class="font-bold text-slate-900 mb-2">Launch</h3>
                         <p class="text-sm text-slate-500">Configure your SMTP settings (or select Outlook), then click
-                            <b>"Start Engine"</b>. Watch the logs for real-time progress.</p>
+                            <b>"Start Engine"</b>. Watch the logs for real-time progress.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -127,9 +128,13 @@
             </div>
 
             <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                <div class="p-6 border-b border-slate-100 bg-slate-50/50">
+                <div class="p-6 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
                     <p class="text-sm text-slate-600">Prepare your <code>.xlsx</code> file with clear headers in the
                         first row.</p>
+                    <a href="/download/template_data.xlsx"
+                        class="flex items-center gap-2 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded shadow-sm transition">
+                        <i class="fa-solid fa-download"></i> Download Template
+                    </a>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -183,7 +188,13 @@
             </div>
 
             <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden p-8">
-                <p class="text-slate-600 mb-6">Use angle brackets <code>&lt; &gt;</code> to create dynamic fields.</p>
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-slate-600">Use angle brackets <code>&lt; &gt;</code> to create dynamic fields.</p>
+                    <a href="/download/template_document.docx"
+                        class="flex items-center gap-2 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded shadow-sm transition">
+                        <i class="fa-solid fa-download"></i> Download Template
+                    </a>
+                </div>
 
                 <!-- Visual Paper -->
                 <div

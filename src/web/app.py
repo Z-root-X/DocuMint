@@ -1,7 +1,7 @@
 import os
 import sys
 import threading
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 
 # Add the src directory to path so we can import documint.core
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -30,6 +30,13 @@ def index():
 @app.route('/docs')
 def docs():
     return render_template('docs.html')
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    # Examples are in project_root/examples
+    # src_dir is project_root/src
+    examples_dir = os.path.abspath(os.path.join(src_dir, '..', 'examples'))
+    return send_from_directory(examples_dir, filename, as_attachment=True)
 
 @app.route('/api/validate', methods=['POST'])
 def validate():
