@@ -244,17 +244,26 @@
                                 <h3 class="font-semibold text-slate-800 text-sm">SMTP Gateway</h3>
                             </div>
                             <div class="p-4 space-y-3">
-                                <select id="provider"
+                                <select id="provider" onchange="toggleSMTP()"
                                     class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none">
                                     <option value="smtp">Custom SMTP</option>
                                     <option value="outlook">Outlook App</option>
                                 </select>
-                                <input type="text" id="host" value="smtp.gmail.com"
-                                    class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
-                                <input type="text" id="user" placeholder="Email"
-                                    class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
-                                <input type="password" id="pass" placeholder="App Password"
-                                    class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
+
+                                <div id="smtpFields" class="space-y-3">
+                                    <input type="text" id="host" value="smtp.gmail.com"
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
+                                    <input type="text" id="user" placeholder="Email"
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
+                                    <input type="password" id="pass" placeholder="App Password"
+                                        class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700">
+                                </div>
+
+                                <div id="outlookMsg"
+                                    class="hidden text-xs text-slate-500 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    <i class="fa-solid fa-circle-info text-blue-500 mr-1"></i>
+                                    Uses your local Outlook program. No password required.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -281,6 +290,20 @@
     </main>
 
     <script>
+        function toggleSMTP() {
+            const provider = document.getElementById('provider').value;
+            const fields = document.getElementById('smtpFields');
+            const msg = document.getElementById('outlookMsg');
+
+            if (provider === 'outlook') {
+                fields.classList.add('hidden');
+                msg.classList.remove('hidden');
+            } else {
+                fields.classList.remove('hidden');
+                msg.classList.add('hidden');
+            }
+        }
+
         function toggleView(mode) {
             const edit = document.getElementById('editPane');
             const prev = document.getElementById('prevPane');

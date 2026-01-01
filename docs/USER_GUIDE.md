@@ -134,9 +134,10 @@ Gmail requires an **App Password** (not your login password).
 6.  Use this as your **Password** in DocuMint.
 7.  Host: `smtp.gmail.com`
 
-### Using Office 365
-*   Host: `smtp.office365.com`
-*   Ensure "Authenticated SMTP" is enabled for your organization.
+### Using Outlook Desktop App
+*   **No Password Required**: This method uses your installed Outlook program. You do NOT need an App Password.
+*   **Prerequisite**: Microsoft Outlook must be installed and logged in.
+*   **Classic Mode**: Ensure the "New Outlook" toggle is OFF (Classic Outlook application works best).
 
 ---
 
