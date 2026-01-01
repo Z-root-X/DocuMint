@@ -1,111 +1,79 @@
-# 📘 DocuMint Expert Manual
-*Automated Document Generation & Emailing System*
+# 📘 DocuMint Expert Manual (v3.0)
+*The Enterprise-Grade Document Automation Platform*
 
-**Version:** 2.1.0 (`Web Studio Edition`)
-**Last Updated:** January 1, 2026
-**Author:** Zihad Hasan
-
-> [!IMPORTANT]
-> **Privacy First**: DocuMint runs entirely on your local machine. No data (Excel/Word) is ever uploaded to the cloud.
+**Version**: 3.0.0 (International Standard)
+**Last Updated**: January 1, 2026
 
 ---
 
-## 📋 Table of Contents
-1.  [Concept Overview](#concept)
-2.  [Quick Start (Web Studio)](#quick-start)
-3.  [Designing Your Templates](#templates)
-4.  [Email Gateway Setup](#gateway)
-5.  [Advanced Configuration](#advanced)
-6.  [Troubleshooting Guide](#troubleshooting)
+## 🏗️ 1. Architecture & Process (Deep Dive)
+DocuMint is built on a **Pipeline Architecture**. Unlike simple scripts, it processes data in isolated stages to ensure data integrity and speed.
 
----
-
-## <a id="concept"></a>1. Concept Overview
-DocuMint automates the "Mail Merge" process. It takes:
-1.  **Data Source (Excel)**: A list of people (Name, ID, Email).
-2.  **Template (Word)**: A document with placeholders (e.g., `<Name>`).
-
-**The Output**:
-*   A personalized PDF for every row in Excel.
-*   An email sent to that person with the PDF attached (optional).
-
----
-
-## <a id="quick-start"></a>2. Quick Start (Web Studio)
-The Web Studio is the modern interface for DocuMint.
-
-### Step 1: Run the Server
-Open your terminal in the project folder and run:
-```bash
-python src/web/app.py
+### The Pipeline Flow
+```mermaid
+graph TD
+    A[Excel Data Source] -->|1. Validation| B{Integrity Check}
+    B -->|Fail| C[Stop & Alert User]
+    B -->|Pass| D[2. Generation Engine]
+    D -->|Template Injection| E[Word Doc (.docx)]
+    E -->|Conversion| F[PDF Document (.pdf)]
+    F -->|3. Dispatcher| G{Gateway Selection}
+    G -->|Custom SMTP| H[Parallel Sending (5x Speed)]
+    G -->|Outlook App| I[Serial Sending (Safe Mode)]
+    H --> J[Analytics DB (SQLite)]
+    I --> J
 ```
-Open **[http://localhost:5000](http://localhost:5000)** in Chrome/Edge.
 
-### Step 2: Get Templates (Optional)
-If you are new, go to the **Documentation** page (Sidebar > Documentation) and click **"Download Template"** to get starter files.
-
-### Step 3: Configure the Job
-1.  **Excel Path**: Full path to your `.xlsx` file (e.g., `D:\MyFiles\data.xlsx`).
-2.  **Word Path**: Full path to your `.docx` file.
-    *   *Tip: Click "Check Integrity" to verify your files match.*
-3.  **PDF Output**: Folder where PDFs will be saved (automatically created if missing).
-
-### Step 4: Compose & Send
-1.  **Email Composer**: Write your Subject and Body.
-    *   *Tip: Use the "Preview" button to see your HTML email live.*
-2.  **Gateway**: Choose "Custom SMTP" (Gmail/Yahoo) or "Outlook App".
-3.  **Launch**: Click "Start Engine".
+### Key Components
+1.  **Validator**: Scans every row in your Excel file against the Word Template placeholders *before* starting. This prevents crashing at row 499 of 500.
+2.  **ThreadPoolExecutor (New in v3.0)**: When using SMTP, DocuMint spins up 5 concurrent threads. This means it sends 5 emails simultaneously, drastically reducing wait times for large batches.
+3.  **SQLite Recorder (New in v3.0)**: Every job is logged to a local database (`history.db`). This allows the "Analytics" tab to show you historical success rates.
 
 ---
 
-## <a id="templates"></a>3. Designing Your Templates
+## 🚀 2. Quick Start Guide
 
-### Excel Data Rules
-*   **Row 1 is Reserved**: The first row MUST contain headers (e.g., `Name`, `ID`, `Designation`).
-*   **Case Insensitive**: `Name` and `name` are treated the same.
-*   **Required Column**: You MUST have a column named `Email` if you want to send emails.
-*   **No Merged Cells**: Ensure your data is a simple flat table.
+### Step 1: Launch
+Double-click `run_studio.bat`. The Web Studio will open at `http://localhost:5000`.
 
-### Word Template Rules
-*   **Placeholders**: Use angle brackets: `<HeaderName>`.
-*   **Styling**: Apply Bold/Color/Fonts directly to the `< >` text in Word. The replaced text will inherit that style.
-*   **Images/Tables**: Fully supported. The script preserves all layout.
+### Step 2: Prepare Assets (The "Examples")
+Look in the `examples/` folder.
+*   **Data**: `student_data.xlsx` (Edit this with your list).
+*   **Template**: `admit_card_template.docx` (Edit this with your design).
 
----
+### Step 3: Configure Job
+1.  **Profiles (New!)**: If you have saved settings before, pick them from the "Load Profile" dropdown.
+2.  **File Paths**: Paste the full paths to your Excel and Word files.
+3.  **PDF Output**: Choose where to save the generated files.
 
-## <a id="gateway"></a>4. Email Gateway Setup
-
-### Option A: Gmail (Universal SMTP) 🔥 *Recommended*
-1.  **Host**: `smtp.gmail.com`
-2.  **Port**: 465 (Auto-handled).
-3.  **Password**: You strictly need an **App Password**.
-    *   Go to Google Account > Security > 2-Step Verification > App Passwords.
-    *   Generate one for "Mail". Copy the 16-digit code.
-    *   Paste it into DocuMint. **Do not use your login password.**
-
-### Option B: Outlook Desktop App
-1.  **Requirement**: "Classic" Outlook must be installed and running.
-2.  **Auth**: No password needed. It uses your active desktop session.
-3.  **Limitation**: Slow for bulk sending (Outlook has security delays).
+### Step 4: Run
+Click **Start Engine**. Watch the "System Logs" or switch to the "Analytics" tab to watch the counter go up.
 
 ---
 
-## <a id="advanced"></a>5. Advanced Configuration
-When sending bulk emails (e.g., 500+), server reputation matters.
-
-*   **Delay**: The default delay is **2 seconds** between emails. Increase this to 5-10s for large lists to avoid spam filters.
-*   **Retries**: If an email fails (e.g., internet blip), the system retries **2 times** automatically.
+## 💾 3. Configuration Profiles
+Stop typing the same paths every day.
+1.  Set up your job (Paths, Subject, Body, SMTP settings).
+2.  Click **"Save Profile"**.
+3.  Name it (e.g., `Monthly_Invoices`).
+4.  Next time, just select `Monthly_Invoices` from the dropdown.
 
 ---
 
-## <a id="troubleshooting"></a>6. Troubleshooting Guide
+## 📊 4. Analytics Dashboard
+Click the **"Analytics"** button in the bottom panel.
+*   **Total Jobs**: How many batches you have run.
+*   **Success Rate**: Tracks if emails were delivered or bounced.
+*   **History Table**: Shows the timestamp and size of previous jobs.
 
+---
+
+## 🔧 5. Troubleshooting
 | Issue | Solution |
 | :--- | :--- |
-| **"Column Not Found"** | Check your Excel header. ensure no trailing spaces (e.g. "Name "). |
-| **"SMTP Auth Failed"** | You are likely using your login password. Use a Google App Password. |
-| **"Outlook RPC Error"** | Ensure the "New Outlook" toggle is OFF. DocuMint needs Classic COM automation. |
-| **Bangla Font Issues** | Web preview uses standard web fonts. The final PDF uses your system's `Hind Siliguri`. Ensure it is installed in Windows. |
+| **"SMTP Auth Failed"** | You typically need an **App Password** (not your login password) for Gmail/Yahoo. |
+| **"OutlookRPC Error"** | Ensure the "New Outlook" (Web wrapper) is OFF. DocuMint needs Classic Outlook. |
+| **"Placeholder Missing"** | Run "Check Integrity". It will tell you exactly which Excel header is missing. |
 
 ---
-*Created by [Zihad Hasan](https://zihadhasan.web.app)*
+**Privacy Note**: DocuMint runs 100% offline. No data leaves your machine except via your own Email Gateway.

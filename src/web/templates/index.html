@@ -157,9 +157,12 @@
                 <div
                     class="bg-white rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
-                        <h3 class="font-semibold text-slate-800 flex items-center gap-2">
-                            <i class="fa-solid fa-folder-open text-blue-500"></i> File Resources
-                        </h3>
+                        <div>
+                            <h3 class="font-semibold text-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-folder-open text-blue-500"></i> File Resources
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Link your Excel data and Word templates here.</p>
+                        </div>
                         <div class="flex items-center gap-3">
                             <select id="profileSelect" onchange="loadProfile(this.value)"
                                 class="text-xs border border-slate-200 rounded px-2 py-1 outline-none text-slate-600">
@@ -170,7 +173,8 @@
                                 <i class="fa-solid fa-save"></i> Save Profile
                             </button>
                             <button onclick="validateFiles()"
-                                class="text-xs font-medium text-slate-500 hover:text-blue-600 transition flex items-center gap-1 border-l border-slate-200 pl-3">
+                                class="text-xs font-medium text-slate-500 hover:text-blue-600 transition flex items-center gap-1 border-l border-slate-200 pl-3"
+                                title="Checks if your Excel columns match the <Values> in your Word Doc.">
                                 <i class="fa-solid fa-check-circle"></i> Check Integrity
                             </button>
                         </div>
@@ -256,9 +260,13 @@
                             <div class="p-4 space-y-3">
                                 <select id="provider" onchange="toggleSMTP()"
                                     class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none">
-                                    <option value="smtp">Custom SMTP</option>
-                                    <option value="outlook">Outlook App</option>
+                                    <option value="smtp">Custom SMTP (High Speed - 5x Threads)</option>
+                                    <option value="outlook">Outlook App (Safe Mode - Uses Desktop App)</option>
                                 </select>
+                                <p class="text-[10px] text-slate-400 px-1">
+                                    <b>Custom SMTP</b> is faster but requires specific credentials.<br>
+                                    <b>Outlook</b> uses your open Outlook app but is slower.
+                                </p>
 
                                 <div id="smtpFields" class="space-y-3">
                                     <input type="text" id="host" value="smtp.gmail.com"
