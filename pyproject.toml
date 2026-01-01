@@ -11,11 +11,11 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = [
     "pandas>=2.1.0",
     "python-docx>=0.8.11",
     "pywin32>=306; sys_platform == 'win32'",
-    "openpyxl>=3.1.0"
+    "openpyxl>=3.1.0",
+    "flask>=3.0.0"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

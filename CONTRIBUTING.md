@@ -33,5 +33,9 @@ The following is a set of guidelines for contributing to DocuMint. These are mos
 *   Add comments for complex logic.
 
 ## Running Tests
-
-(Coming Soon) - We are implementing `pytest`. Please ensure any new code does not break existing functionality by performing a manual dry-run.
+*   We use `pytest`.
+*   Run tests using:
+    ```bash
+    pytest tests/
+    ```
+*   Ensure all tests pass before submitting a PR.

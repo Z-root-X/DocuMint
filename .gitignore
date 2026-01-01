@@ -78,3 +78,10 @@ venv.bak/
 
 # Custom
 config.json
+
+# DocuMint Specific
+history.db
+profiles/*.json
+logs/
+*.log
+
