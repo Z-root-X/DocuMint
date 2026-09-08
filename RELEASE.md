@@ -23,7 +23,7 @@ This release introduces a fully-featured **Web Interface** (`src/web/app.py`) de
 
 ## � Download
 The standalone Windows executable is available:
-*   [Download DocuMint_Portable.zip](https://github.com/Z-root-X/DocuMint/raw/master/DocuMint_Portable.zip)
+*   [Download DocuMint_Portable.zip](https://github.com/zihaaaad/DocuMint/raw/master/DocuMint_Portable.zip)
 
 ---
 *Created by [Zihad Hasan](https://zihadhasan.web.app)*

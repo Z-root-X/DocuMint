@@ -2,6 +2,8 @@
 
 Universal document processing, automated template generation, and batch dispatch platform built in Python. Engineered for high-volume automated document generation from Excel/Word templates, local analytics tracking, and concurrent multi-threaded dispatch pipelines.
 
+**Live Interactive Showcase:** [https://zihaaaad.github.io/DocuMint/](https://zihaaaad.github.io/DocuMint/)
+
 ---
 
 ## Architectural Highlights

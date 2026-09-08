@@ -33,33 +33,69 @@ class EmailSender(ABC):
         """Sends an email with optional attachments."""
         pass
 
-# --- Windows Implementations (The "Legacy" Layer) ---
+# --- Windows & Universal Implementations ---
 
-class WinWordConverter(DocumentConverter):
-    """Uses Microsoft Word (via COM) to convert documents."""
+class UniversalDocumentConverter(DocumentConverter):
+    """Universal converter that dynamically selects the best available engine (Word COM, docx2pdf, or LibreOffice)."""
     
     def convert_to_pdf(self, input_path: str, output_path: str) -> None:
-        import win32com.client
-        from win32com.client import constants
-        
         abs_input = os.path.abspath(input_path)
         abs_output = os.path.abspath(output_path)
         
-        word_app = None
-        doc = None
+        # 1. Try Windows Word COM
+        if os.name == 'nt':
+            try:
+                import win32com.client
+                word_app = None
+                doc = None
+                try:
+                    word_app = win32com.client.Dispatch("Word.Application")
+                    word_app.Visible = False
+                    doc = word_app.Documents.Open(abs_input)
+                    doc.SaveAs(abs_output, FileFormat=17) # 17 = wdFormatPDF
+                    return
+                finally:
+                    if doc:
+                        doc.Close(False)
+                    if word_app:
+                        word_app.Quit()
+            except Exception as e:
+                logger.warning(f"WinWordConverter unavailable or failed: {e}. Attempting fallbacks...")
+
+        # 2. Try docx2pdf
         try:
-            word_app = win32com.client.Dispatch("Word.Application")
-            word_app.Visible = False
-            doc = word_app.Documents.Open(abs_input)
-            doc.SaveAs(abs_output, FileFormat=17) # 17 = wdFormatPDF
-        except Exception as e:
-            logger.error(f"Word conversion failed: {e}")
-            raise e
-        finally:
-            if doc:
-                doc.Close(False)
-            if word_app:
-                word_app.Quit()
+            from docx2pdf import convert
+            convert(abs_input, abs_output)
+            return
+        except Exception:
+            pass
+
+        # 3. Try LibreOffice CLI
+        import subprocess
+        output_dir = os.path.dirname(abs_output)
+        for cmd in ['libreoffice', 'soffice']:
+            try:
+                subprocess.run(
+                    [cmd, '--headless', '--convert-to', 'pdf', abs_input, '--outdir', output_dir],
+                    check=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    timeout=30
+                )
+                generated_pdf = os.path.splitext(abs_input)[0] + '.pdf'
+                if os.path.exists(generated_pdf) and generated_pdf != abs_output:
+                    os.replace(generated_pdf, abs_output)
+                return
+            except Exception:
+                continue
+
+        raise RuntimeError(
+            "No PDF conversion engine available. Please install Microsoft Word (Windows) or LibreOffice (Linux/Mac)."
+        )
+
+class WinWordConverter(UniversalDocumentConverter):
+    """Compatibility alias for UniversalDocumentConverter."""
+    pass
 
 class WinOutlookSender(EmailSender):
     """Uses Microsoft Outlook (via COM) to send emails."""
@@ -137,23 +173,41 @@ def replace_placeholders_in_doc(doc: Document, replacements: Dict[str, Any]) -> 
                     _replace_in_paragraph(para, replacements)
 
 def _replace_in_paragraph(paragraph, replacements: Dict[str, Any]) -> None:
-    """Helper to safely replace text in a run-based paragraph."""
+    """Helper to replace placeholders in a paragraph while preserving run formatting when possible."""
+    expanded_replacements = {}
+    for k, v in replacements.items():
+        val_str = str(v)
+        expanded_replacements[k] = val_str
+        clean_k = str(k).strip('<>{}[]')
+        expanded_replacements[f"<{clean_k}>"] = val_str
+        expanded_replacements[f"{{{{{clean_k}}}}}"] = val_str
+        expanded_replacements[f"[{clean_k}]"] = val_str
+
     full_text = "".join(run.text for run in paragraph.runs)
-    if not any(key in full_text for key in replacements):
+    if not any(key in full_text for key in expanded_replacements):
         return
 
-    new_text = full_text
-    for key, val in replacements.items():
-        new_text = new_text.replace(key, str(val))
-    
-    if new_text != full_text:
-        # Clear existing runs and set new text
-        # This destroys formatting unfortunately, but is the stable way for simple replacements
-        # A more complex ensuring formatting is retained would go run-by-run
-        p = paragraph._p
-        for child in list(p):
-            p.remove(child)
-        paragraph.add_run(new_text)
+    sorted_keys = sorted(expanded_replacements.keys(), key=len, reverse=True)
+
+    # 1. First attempt: run-by-run replacement to preserve bold/italic/font formatting
+    for run in paragraph.runs:
+        for key in sorted_keys:
+            val = expanded_replacements[key]
+            if key in run.text:
+                run.text = run.text.replace(key, val)
+
+    # 2. Fallback: if placeholder was split across runs by Word editor
+    remaining_text = "".join(run.text for run in paragraph.runs)
+    if any(key in remaining_text for key in sorted_keys):
+        new_text = remaining_text
+        for key in sorted_keys:
+            val = expanded_replacements[key]
+            new_text = new_text.replace(key, val)
+        if new_text != remaining_text:
+            p = paragraph._p
+            for child in list(p):
+                p.remove(child)
+            paragraph.add_run(new_text)
 
 def is_valid_email(email_address: str) -> bool:
     """Validates an email address."""
@@ -163,26 +217,25 @@ def is_valid_email(email_address: str) -> bool:
 def validate_placeholders(data_file: str, template_file: str) -> tuple[bool, list[str]]:
     """
     Checks if all placeholders in the template exist as columns in the data file.
+    Supports <Column>, {{Column}}, and [Column] syntax.
     Returns (True, []) if valid, or (False, list_of_missing_columns).
     """
     if not os.path.exists(data_file) or not os.path.exists(template_file):
         return False, ["File not found"]
 
     try:
-        # 1. Get Columns from Excel
-        df = pd.read_excel(data_file)
-        df.columns = df.columns.str.strip()
+        df = pd.read_excel(data_file) if data_file.endswith(('.xlsx', '.xls')) else pd.read_csv(data_file)
+        df.columns = df.columns.astype(str).str.strip()
         data_columns = set(df.columns)
 
-        # 2. Get Placeholders from Docx
         doc = Document(template_file)
         placeholders = set()
-        pattern = r"<([^>]+)>"
+        pattern = r"(?:<|{{|\[)([^>}\]]+)(?:>|}}|\])"
         
         def extract_from_text(text):
             matches = re.findall(pattern, text)
             for m in matches:
-                placeholders.add(m)
+                placeholders.add(m.strip())
 
         for para in doc.paragraphs:
             extract_from_text(para.text)
@@ -193,19 +246,7 @@ def validate_placeholders(data_file: str, template_file: str) -> tuple[bool, lis
                     for para in cell.paragraphs:
                         extract_from_text(para.text)
 
-        # 3. Compare
-        # We only care about placeholders that match the pattern <ColName>
-        # The user might have other text like < ... < ... which is regex matched but not a placeholder.
-        # So strictly speaking, we check if the placeholder *could* be a column.
-        # But for this feature, we'll reverse it: Check if any found placeholder is MISSING from columns.
-        
-        missing = []
-        for p in placeholders:
-            if p not in data_columns:
-                # heuristic: only flag it if it looks like a variable (no spaces or simple text)
-                # For now, flag everything to be safe, user can ignore.
-                missing.append(p)
-
+        missing = [p for p in placeholders if p not in data_columns]
         return (len(missing) == 0), missing
 
     except Exception as e:
