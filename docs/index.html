@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocuMint - Engineering Knowledgebase</title>
+    <title>DocuMint - Engineering Knowledgebase & User Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
             color: #202122;
             background-color: #ffffff;
             font-size: 15px;
-            line-height: 1.65;
+            line-height: 1.68;
         }
         a.wiki-link {
             color: #3366cc;
@@ -133,7 +133,7 @@
 </head>
 <body class="bg-white text-[#202122] font-sans antialiased">
 
-    <!-- Top Wikipedia-Style Global Header -->
+    <!-- Top Global Header -->
     <header class="border-b border-[#c8ccd1] bg-[#f8f9fa] sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
             <div class="flex items-center gap-4">
@@ -143,12 +143,12 @@
                     </div>
                     <div>
                         <div class="font-serif font-bold text-sm tracking-tight text-[#202122] leading-none">Engineering Encyclopedia</div>
-                        <div class="text-[11px] text-[#54595d] leading-tight">The Open Architecture Repository</div>
+                        <div class="text-[11px] text-[#54595d] leading-tight">The Open Architecture & Document Automation Standard</div>
                     </div>
                 </a>
             </div>
 
-            <!-- Header Quick Links -->
+            <!-- Quick Links -->
             <div class="hidden sm:flex items-center gap-4 text-xs">
                 <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="px-3 py-1.5 rounded border border-[#a2a9b1] bg-white hover:bg-[#eaecf0] text-[#202122] font-medium transition flex items-center gap-1.5">
                     <svg class="w-3.5 h-3.5 fill-current text-[#202122]" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -160,13 +160,13 @@
             </div>
         </div>
 
-        <!-- Wikipedia Article Action Bar -->
+        <!-- Article Action Bar -->
         <div class="border-t border-[#c8ccd1] bg-white">
             <div class="max-w-7xl mx-auto px-4 flex items-center justify-between text-xs">
                 <div class="flex items-center gap-6">
                     <span class="py-2 border-b-2 border-[#3366cc] font-bold text-[#202122]">Article</span>
-                    <span class="py-2 text-[#54595d] hover:text-[#202122] cursor-pointer">Technical Specification</span>
-                    <span class="py-2 text-[#54595d] hover:text-[#202122] cursor-pointer">Releases</span>
+                    <a href="#guide" class="py-2 text-[#54595d] hover:text-[#202122] no-underline">Engineering Guide</a>
+                    <a href="#comparison" class="py-2 text-[#54595d] hover:text-[#202122] no-underline">Comparison Matrix</a>
                 </div>
                 <div class="hidden md:flex items-center gap-6 text-[#54595d]">
                     <span class="py-2 text-[#202122] font-medium">Read</span>
@@ -177,53 +177,62 @@
         </div>
     </header>
 
-    <!-- Main Container -->
+    <!-- Main Content Grid -->
     <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="top">
 
-        <!-- Left Navigation Sidebar (TOC) -->
+        <!-- Left Sticky TOC Sidebar -->
         <aside class="hidden lg:block lg:col-span-3 sticky top-28 space-y-4 text-xs pr-4 border-r border-[#eaecf0]">
             <div class="font-bold text-sm text-[#202122] pb-2 border-b border-[#c8ccd1]">
                 Contents
             </div>
             <ul class="space-y-2 text-[#54595d]">
                 <li><a href="#top" class="wiki-link text-[#202122] font-medium">(Top)</a></li>
-                <li><a href="#background" class="wiki-link">1 Background and Problem Statement</a></li>
+                <li>
+                    <a href="#real-world-issues" class="wiki-link">1 Real-World Problem Analysis</a>
+                    <ul class="pl-3.5 pt-1 space-y-1 text-[11.5px]">
+                        <li><a href="#sector-academia" class="wiki-link">1.1 Academic & Higher Education</a></li>
+                        <li><a href="#sector-corporate" class="wiki-link">1.2 Corporate HR & Payroll</a></li>
+                        <li><a href="#sector-healthcare" class="wiki-link">1.3 Healthcare & Clinical Labs</a></li>
+                        <li><a href="#sector-events" class="wiki-link">1.4 Conferences & Badging</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="#architecture" class="wiki-link">2 Architecture and System Design</a>
                     <ul class="pl-3.5 pt-1 space-y-1 text-[11.5px]">
-                        <li><a href="#template-engine" class="wiki-link">2.1 Template Merge Pipeline</a></li>
-                        <li><a href="#pdf-converter" class="wiki-link">2.2 Universal PDF Engine</a></li>
+                        <li><a href="#template-engine" class="wiki-link">2.1 Run-Preserving OpenXML Merge</a></li>
+                        <li><a href="#pdf-converter" class="wiki-link">2.2 Universal PDF Engine Cascade</a></li>
                         <li><a href="#dispatcher" class="wiki-link">2.3 Multi-Thread Dispatcher</a></li>
-                        <li><a href="#audit-ledger" class="wiki-link">2.4 Persistent SQLite Audit</a></li>
+                        <li><a href="#audit-ledger" class="wiki-link">2.4 SQLite Telemetry Ledger</a></li>
                     </ul>
                 </li>
                 <li><a href="#interactive-simulator" class="wiki-link font-semibold text-[#3366cc]">3 Interactive Document Simulator</a></li>
-                <li><a href="#comparison" class="wiki-link">4 Comparative Analysis Matrix</a></li>
-                <li><a href="#implementation" class="wiki-link">5 Implementation and Usage</a></li>
-                <li><a href="#references" class="wiki-link">6 References and External Links</a></li>
+                <li><a href="#guide" class="wiki-link font-semibold">4 Professional Engineering Guide</a></li>
+                <li><a href="#comparison" class="wiki-link">5 Comparative Analysis Matrix</a></li>
+                <li><a href="#implementation" class="wiki-link">6 Implementation & API Reference</a></li>
+                <li><a href="#references" class="wiki-link">7 References & External Links</a></li>
             </ul>
 
             <div class="pt-6 border-t border-[#c8ccd1] text-[11px] text-[#54595d] space-y-1">
-                <div>Published by <strong class="text-[#202122]">Zihad Hasan</strong></div>
+                <div>Lead Architect: <strong class="text-[#202122]">Zihad Hasan</strong></div>
                 <div>License: <strong class="text-[#202122]">MIT License</strong></div>
-                <div>Status: <span class="text-emerald-700 font-semibold">Active Maintenance</span></div>
+                <div>Maintenance: <span class="text-emerald-700 font-semibold">Production Ready</span></div>
             </div>
         </aside>
 
-        <!-- Main Article Body -->
+        <!-- Main Article -->
         <main class="lg:col-span-9">
 
-            <!-- Article Title -->
+            <!-- Title -->
             <div class="pb-2 mb-4 border-b border-[#a2a9b1]">
                 <h1 class="text-3xl sm:text-4xl font-serif font-bold text-[#202122] tracking-tight">DocuMint</h1>
                 <div class="text-xs text-[#54595d] mt-1">From the Engineering Knowledgebase, the local-first document automation standard</div>
             </div>
 
             <div class="hatnote">
-                This article describes the architecture, algorithms, and operational specifications of DocuMint, an open-source batch document compilation and multi-channel dispatch engine.
+                This article details the real-world operational problems solved by DocuMint, its internal architectural subsystems, and an enterprise user guide for high-volume document compilation.
             </div>
 
-            <!-- Wikipedia Infobox -->
+            <!-- Infobox -->
             <table class="infobox">
                 <tr>
                     <th colspan="2" class="infobox-header">DocuMint</th>
@@ -261,109 +270,136 @@
                     <td>Universal (<a href="#pdf-converter" class="wiki-link">Windows, Linux, macOS</a>)</td>
                 </tr>
                 <tr>
-                    <th scope="row">Platform</th>
-                    <td>Local-first (Zero cloud transmission)</td>
+                    <th scope="row">Security model</th>
+                    <td>100% Local-first (0% Cloud transmission)</td>
                 </tr>
                 <tr>
-                    <th scope="row">Type</th>
-                    <td>Batch Document Generator, Mail Merge Pipeline, PDF Compiler</td>
+                    <th scope="row">Primary type</th>
+                    <td>Batch Document Generator, PDF Compiler, Mail Dispatcher</td>
                 </tr>
                 <tr>
                     <th scope="row">License</th>
                     <td><a href="https://github.com/zihaaaad/DocuMint/blob/master/LICENSE" target="_blank" class="wiki-link">MIT License</a></td>
                 </tr>
                 <tr>
-                    <th scope="row">Website</th>
+                    <th scope="row">Documentation</th>
                     <td><a href="https://zihaaaad.github.io/DocuMint/" class="wiki-link">zihaaaad.github.io/DocuMint</a></td>
                 </tr>
             </table>
 
             <!-- Lead Paragraph -->
             <p class="mb-4">
-                <strong>DocuMint</strong> is a local-first document automation and high-throughput dispatch engine developed in Python by software engineer <a href="https://github.com/zihaaaad" class="wiki-link">Zihad Hasan</a><a href="#ref-1" class="ref-mark">[1]</a>. Designed to replace traditional mail merge tools, DocuMint combines structured tabular data from spreadsheet sources (<a href="https://en.wikipedia.org/wiki/Microsoft_Excel" class="wiki-link">Microsoft Excel</a> and <a href="https://en.wikipedia.org/wiki/Comma-separated_values" class="wiki-link">CSV</a>) with formatted Word documents (<code class="text-xs font-mono bg-[#eaecf0] px-1 py-0.5 rounded">.docx</code>) to compile personalized certificates, admit cards, transcripts, and invoices at scale<a href="#ref-2" class="ref-mark">[2]</a>.
+                <strong>DocuMint</strong> is an open-source, local-first document automation and asynchronous dispatch engine engineered in Python by software engineer <a href="https://github.com/zihaaaad" class="wiki-link">Zihad Hasan</a><a href="#ref-1" class="ref-mark">[1]</a>. Designed as a high-performance alternative to traditional mail merge workflows and costly cloud APIs, DocuMint ingests tabular datasets (<a href="https://en.wikipedia.org/wiki/Microsoft_Excel" class="wiki-link">Excel</a> and <a href="https://en.wikipedia.org/wiki/Comma-separated_values" class="wiki-link">CSV</a>), dynamically populates Microsoft Word (<code class="text-xs font-mono bg-[#eaecf0] px-1 py-0.5 rounded">.docx</code>) templates, compiles them into high-fidelity vector PDF files, and executes multi-threaded personalized email dispatch with ACID SQLite audit logging<a href="#ref-2" class="ref-mark">[2]</a>.
             </p>
 
             <p class="mb-4">
-                Unlike cloud-hosted software-as-a-service (SaaS) document generation APIs, DocuMint executes 100% of data manipulation, vector PDF rendering, and SMTP/Outlook email dispatch locally on the host machine. This architecture ensures zero cloud data transmission, meeting strict privacy standards for educational institutions, corporate human resource departments, and healthcare administrators managing confidential records<a href="#ref-3" class="ref-mark">[3]</a>.
+                Unlike cloud SaaS platforms that require uploading confidential student marks, employee salaries, and patient diagnostic numbers to remote multi-tenant servers, DocuMint runs 100% locally on host hardware. This ensures zero cloud data leakage, meeting the strictest regulatory standards including GDPR, FERPA, and HIPAA<a href="#ref-3" class="ref-mark">[3]</a>.
             </p>
 
-            <!-- Table of Contents (Inline Mobile / Tablet) -->
+            <!-- Inline Mobile TOC -->
             <div class="toc-box lg:hidden">
                 <div class="font-bold text-sm text-[#202122] mb-2 pb-1 border-b border-[#a2a9b1]">Contents</div>
                 <ul class="space-y-1 text-xs text-[#54595d]">
-                    <li><a href="#background" class="wiki-link">1 Background and Problem Statement</a></li>
+                    <li><a href="#real-world-issues" class="wiki-link">1 Real-World Problem Analysis</a></li>
                     <li><a href="#architecture" class="wiki-link">2 Architecture and System Design</a></li>
                     <li><a href="#interactive-simulator" class="wiki-link font-semibold text-[#3366cc]">3 Interactive Document Simulator</a></li>
-                    <li><a href="#comparison" class="wiki-link">4 Comparative Analysis Matrix</a></li>
-                    <li><a href="#implementation" class="wiki-link">5 Implementation and Usage</a></li>
-                    <li><a href="#references" class="wiki-link">6 References and External Links</a></li>
+                    <li><a href="#guide" class="wiki-link">4 Professional Engineering Guide</a></li>
+                    <li><a href="#comparison" class="wiki-link">5 Comparative Analysis Matrix</a></li>
+                    <li><a href="#implementation" class="wiki-link">6 Implementation & API Reference</a></li>
+                    <li><a href="#references" class="wiki-link">7 References & External Links</a></li>
                 </ul>
             </div>
 
-            <!-- Section 1: Background & Problem Statement -->
-            <h2 id="background" class="text-2xl section-header">1 Background and Problem Statement</h2>
+            <!-- Section 1: Real-World Problem Analysis -->
+            <h2 id="real-world-issues" class="text-2xl section-header">1 Real-World Problem Analysis</h2>
             <p class="mb-3">
-                Bulk document generation in enterprise and academic settings historically suffered from three critical systemic limitations:
+                Modern organizations require generating millions of individualized documents annually. Traditional tools create acute bottlenecks in four major sectors:
             </p>
 
-            <ol class="list-decimal pl-6 space-y-2 mb-4 text-[14.5px]">
-                <li>
-                    <strong>Formatting Degradation in Legacy Mail Merge:</strong> Standard Microsoft Word mail merge frequently alters typeface hierarchies, destroys nested table alignments, and requires cumbersome manual GUI navigation for every single batch operation<a href="#ref-2" class="ref-mark">[2]</a>.
-                </li>
-                <li>
-                    <strong>Cloud Data Leakage and Confidentiality Violations:</strong> Modern cloud-based document generation APIs (such as DocuSign, PandaDoc, and third-party Zapier plugins) require transmitting sensitive identity numbers, salary slips, and academic evaluations to remote multi-tenant servers, violating internal security policies.
-                </li>
-                <li>
-                    <strong>Dispatch Disconnect and Manual Attachment Overhead:</strong> Traditional workflows require generating files in one program, converting them manually to PDF in a second tool, and manually attaching each individual PDF to separate recipient emails in a third program.
-                </li>
-            </ol>
+            <h3 id="sector-academia" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.1 Academic Institutions & Higher Education</h3>
+            <p class="mb-2">
+                At the conclusion of academic terms or professional development courses, registrars must issue thousands of certificates, examination admit cards, and transcripts.
+            </p>
+            <ul class="list-disc pl-6 space-y-1 mb-3 text-xs text-[#54595d]">
+                <li><strong>The Problem:</strong> Word's legacy mail merge requires manual supervision and cannot automatically convert individual merged records into password-protected or attached PDF files. A single misaligned column can produce thousands of corrupted documents.</li>
+                <li><strong>The DocuMint Solution:</strong> Executes pre-flight column validation, preserves exact diploma typography across runs, generates vector PDFs, and delivers them directly to student inboxes in asynchronous worker pools.</li>
+            </ul>
+
+            <h3 id="sector-corporate" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.2 Corporate HR & Payroll Operations</h3>
+            <p class="mb-2">
+                HR departments generate monthly compensation slips, annual tax statements, and employment verification letters.
+            </p>
+            <ul class="list-disc pl-6 space-y-1 mb-3 text-xs text-[#54595d]">
+                <li><strong>The Problem:</strong> Sending salary data and national ID numbers through third-party SaaS cloud generators exposes enterprises to corporate espionage and data privacy breaches.</li>
+                <li><strong>The DocuMint Solution:</strong> 100% on-premises execution within the corporate intranet, guaranteeing that sensitive employee compensation figures never leave the local machine.</li>
+            </ul>
+
+            <h3 id="sector-healthcare" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.3 Healthcare & Diagnostic Centers</h3>
+            <p class="mb-2">
+                Diagnostic laboratories deliver personalized test results, pathology summaries, and physician referral notes.
+            </p>
+            <ul class="list-disc pl-6 space-y-1 mb-3 text-xs text-[#54595d]">
+                <li><strong>The Problem:</strong> Health privacy laws (HIPAA/GDPR) impose severe financial penalties for transmitting unencrypted Protected Health Information (PHI) to unvetted cloud APIs.</li>
+                <li><strong>The DocuMint Solution:</strong> Generates individualized patient PDF reports locally and dispatches them via encrypted internal SMTP relays with comprehensive SQLite audit trails.</li>
+            </ul>
+
+            <h3 id="sector-events" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.4 Conferences, Summits & Badging</h3>
+            <p class="mb-2">
+                Organizers of technical conferences, hackathons, and training bootcamps issue delegate badges and participation credentials.
+            </p>
+            <ul class="list-disc pl-6 space-y-1 mb-4 text-xs text-[#54595d]">
+                <li><strong>The Problem:</strong> SaaS document tools bill on a per-document subscription model ($0.20 to $1.50 per PDF), making high-volume badging cost-prohibitive.</li>
+                <li><strong>The DocuMint Solution:</strong> Free, open-source MIT-licensed architecture capable of compiling unlimited documents with zero marginal software cost.</li>
+            </ul>
 
             <!-- Section 2: Architecture & System Design -->
             <h2 id="architecture" class="text-2xl section-header">2 Architecture and System Design</h2>
             <p class="mb-4">
-                DocuMint is architected into four decoupled subsystems that operate in a synchronized pipeline:
+                DocuMint is architected into four decoupled subsystems operating sequentially in a pipelined lifecycle:
             </p>
 
-            <h3 id="template-engine" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.1 Template Merge Pipeline</h3>
+            <h3 id="template-engine" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.1 Run-Preserving OpenXML Merge Engine</h3>
             <p class="mb-3">
-                The core parsing engine scans the underlying XML run tree of Word documents without destroying character-level styles. Rather than replacing raw paragraph string content (which resets bold, italic, and color properties in the OpenXML schema), DocuMint performs granular run-level token substitutions.
+                In the OpenXML specification, a Word paragraph is a composite sequence of <code class="text-xs font-mono">&lt;w:r&gt;</code> (run) XML nodes. Simple replacement algorithms replace <code class="text-xs font-mono">paragraph.text</code> directly, discarding all run nodes and stripping bold, italic, font family, and color properties.
             </p>
             <p class="mb-3">
-                The parser supports multiple placeholder syntaxes to maintain cross-system compatibility:
+                DocuMint implements a two-stage substitution algorithm:
             </p>
-            <ul class="list-disc pl-6 space-y-1 mb-4 text-xs font-mono">
-                <li>Angle Bracket Notation: <span class="bg-[#eaecf0] px-1.5 py-0.5 rounded text-[#202122]">&lt;Recipient_Name&gt;</span></li>
-                <li>Mustache / Jinja Notation: <span class="bg-[#eaecf0] px-1.5 py-0.5 rounded text-[#202122]">{{Recipient_Name}}</span></li>
-                <li>Square Bracket Notation: <span class="bg-[#eaecf0] px-1.5 py-0.5 rounded text-[#202122]">[Recipient_Name]</span></li>
-            </ul>
-
-            <h3 id="pdf-converter" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.2 Universal PDF Engine</h3>
-            <p class="mb-3">
-                To achieve true cross-platform compatibility across Windows, Linux, and macOS, DocuMint employs a prioritized fallback cascade (<code class="text-xs font-mono">UniversalDocumentConverter</code>):
-            </p>
-            <ol class="list-decimal pl-6 space-y-1.5 mb-4 text-[14px]">
-                <li><strong>Tier 1 (Windows Native):</strong> Invokes Microsoft Word COM automation via <code class="text-xs font-mono">win32com.client</code> for pixel-perfect fidelity.</li>
-                <li><strong>Tier 2 (Headless Fallback):</strong> Utilizes the pure-Python <code class="text-xs font-mono">docx2pdf</code> package.</li>
-                <li><strong>Tier 3 (POSIX Server Fallback):</strong> Executes headless <code class="text-xs font-mono">libreoffice --headless --convert-to pdf</code> on Linux/Docker servers.</li>
+            <ol class="list-decimal pl-6 space-y-1.5 mb-4 text-xs text-[#202122]">
+                <li><strong>Run-Level In-Place Substitution:</strong> Scans each individual run and replaces matching placeholders while preserving the parent run's XML formatting container.</li>
+                <li><strong>Boundary Stitching Fallback:</strong> If a word processor has split a placeholder across multiple runs due to intermittent user edits, the engine cleans and reconstructs the text runs without data loss.</li>
             </ol>
+
+            <h3 id="pdf-converter" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.2 Universal PDF Engine Cascade</h3>
+            <p class="mb-3">
+                To guarantee execution across developer laptops, cloud servers, and headless CI/CD containers, DocuMint utilizes a dynamic fallback cascade:
+            </p>
+            <div class="border border-[#a2a9b1] bg-[#f8f9fa] rounded p-4 text-xs font-mono space-y-2 mb-4">
+                <div class="text-[#2a4b8d] font-bold">Tier 1: Windows Word COM Automation (win32com.client)</div>
+                <div class="pl-4 text-[#54595d]">Native COM dispatch with hidden window (`Visible=False`) for pixel-perfect fidelity.</div>
+                <div class="text-[#2a4b8d] font-bold">Tier 2: Pure-Python docx2pdf Bridge</div>
+                <div class="pl-4 text-[#54595d]">Invoked if primary COM automation encounters bus contention.</div>
+                <div class="text-[#2a4b8d] font-bold">Tier 3: Headless LibreOffice CLI (`soffice / libreoffice --headless`)</div>
+                <div class="pl-4 text-[#54595d]">Cross-platform standard for Linux servers, macOS workstations, and Docker containers.</div>
+            </div>
 
             <h3 id="dispatcher" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.3 Multi-Thread Dispatcher</h3>
             <p class="mb-3">
-                The dispatch module orchestrates a worker thread pool allowing concurrent email transmission with automatic attachment binding. It provides native support for SSL/TLS SMTP relays (such as Gmail, SendGrid, Amazon SES) and local COM automation for desktop Microsoft Outlook clients.
+                The dispatch engine manages a thread pool executing concurrent network connections. It automatically binds the generated personalized PDF as a MIME attachment, renders personalized variables in the HTML body, and routes transmission via either standard SMTP SSL/TLS relays or desktop Microsoft Outlook COM automation.
             </p>
 
-            <h3 id="audit-ledger" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.4 Persistent SQLite Audit Ledger</h3>
+            <h3 id="audit-ledger" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.4 SQLite Telemetry Ledger</h3>
             <p class="mb-4">
-                Every execution session writes comprehensive telemetry to a local SQLite database (<code class="text-xs font-mono">history.db</code>), logging timestamped recipient identifiers, dispatch status codes, PDF hash signatures, and retry failure stack traces.
+                All operational events are committed to a local SQLite database (<code class="text-xs font-mono">history.db</code>) with write-ahead logging (WAL), recording recipient addresses, SHA-256 document checksums, execution latency, and error stack traces for post-flight audit and retry capabilities.
             </p>
 
-            <!-- Section 3: Interactive Document Simulator (Clean Wikipedia/Academic UI) -->
+            <!-- Section 3: Interactive Simulator -->
             <h2 id="interactive-simulator" class="text-2xl section-header">3 Interactive Document Simulator</h2>
             <p class="mb-4">
-                The following interactive sandbox demonstrates DocuMint's dynamic merge evaluation in real time. Edit the spreadsheet record fields on the left to simulate automated document compilation.
+                Test DocuMint's dynamic merge evaluation in the live sandbox below. Edit the spreadsheet record attributes on the left to observe real-time document rendering on the right.
             </p>
 
-            <!-- Interactive Sandbox Box (Clean White/Black Editorial Styling) -->
+            <!-- Live Simulator Box -->
             <div class="border border-[#a2a9b1] bg-[#f8f9fa] rounded p-5 my-6">
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#c8ccd1]">
                     <div class="font-bold text-sm text-[#202122] flex items-center gap-2">
@@ -375,10 +411,10 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     
-                    <!-- Form Controls -->
+                    <!-- Left Input Form -->
                     <div class="lg:col-span-5 bg-white border border-[#c8ccd1] rounded p-4 space-y-3.5 text-xs">
                         <div class="font-bold text-xs uppercase tracking-wider text-[#54595d] pb-2 border-b border-[#eaecf0]">
-                            Tabular Record Input (Row #1)
+                            Spreadsheet Record Row
                         </div>
 
                         <div>
@@ -409,19 +445,18 @@
 
                         <div class="pt-2 flex gap-2">
                             <button onclick="cycleRecord()" class="w-full py-2 bg-[#eaecf0] hover:bg-[#c8ccd1] text-[#202122] font-medium rounded border border-[#a2a9b1] transition">
-                                Load Next Sample Record
+                                Cycle Next Sample Record
                             </button>
                         </div>
                     </div>
 
-                    <!-- Live Rendered Certificate Canvas -->
+                    <!-- Right Certificate Buffer -->
                     <div class="lg:col-span-7 bg-white border border-[#a2a9b1] rounded p-6 shadow-sm">
                         <div class="text-[11px] font-mono uppercase text-[#54595d] pb-2 mb-4 border-b border-[#eaecf0] flex justify-between">
                             <span>Compiled Document Buffer (Vector PDF Output)</span>
                             <span class="text-emerald-700 font-bold">Integrity: Verified</span>
                         </div>
 
-                        <!-- Certificate Body -->
                         <div class="border-2 border-[#202122] p-6 rounded bg-[#ffffff] text-center space-y-4 font-serif">
                             <div class="border-b border-[#202122] pb-3">
                                 <div class="font-bold text-base tracking-wide text-[#202122] uppercase">AS-SUNNAH SKILL DEVELOPMENT INSTITUTE</div>
@@ -454,12 +489,38 @@
                 </div>
             </div>
 
-            <!-- Section 4: Comparison Matrix -->
-            <h2 id="comparison" class="text-2xl section-header">4 Comparative Analysis Matrix</h2>
-            <p class="mb-3">
-                The matrix below contrasts DocuMint with traditional Microsoft Word Mail Merge and commercial cloud-based document automation platforms:
-            </p>
+            <!-- Section 4: Professional Engineering Guide -->
+            <h2 id="guide" class="text-2xl section-header">4 Professional Engineering Guide</h2>
 
+            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">4.1 Template Authoring Standards</h3>
+            <p class="mb-2 text-xs">
+                To create robust templates in Microsoft Word:
+            </p>
+            <ul class="list-disc pl-6 space-y-1 mb-4 text-xs text-[#54595d]">
+                <li>Use clean placeholder tokens such as <code class="font-mono text-[#202122]">&lt;Student_Name&gt;</code>, <code class="font-mono text-[#202122]">{{Student_Name}}</code>, or <code class="font-mono text-[#202122]">[Student_Name]</code>.</li>
+                <li>Apply font family, bold, italic, or color styling directly to the placeholder text. DocuMint will inherit and retain these styles during replacement.</li>
+                <li>Placeholders within table cells are fully supported and dynamically evaluated row by row.</li>
+            </ul>
+
+            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">4.2 Dataset Formatting Best Practices</h3>
+            <p class="mb-2 text-xs">
+                Ensure spreadsheet datasets conform to the following rules:
+            </p>
+            <ul class="list-disc pl-6 space-y-1 mb-4 text-xs text-[#54595d]">
+                <li>Place column headers on row 1 without empty leading rows.</li>
+                <li>Avoid special characters in column names; use underscores for spaces (e.g., <code class="font-mono text-[#202122]">Student_Name</code>, <code class="font-mono text-[#202122]">Roll_No</code>).</li>
+                <li>Include a validated <code class="font-mono text-[#202122]">Email</code> column for automated dispatch jobs.</li>
+            </ul>
+
+            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">4.3 Headless Linux & Docker Deployment</h3>
+            <pre class="bg-[#f8f9fa] border border-[#a2a9b1] rounded p-3 text-xs font-mono text-[#202122] overflow-x-auto mb-4"><code># Install LibreOffice on Ubuntu/Debian
+sudo apt-get update && sudo apt-get install -y libreoffice-writer
+
+# Verify headless conversion engine
+libreoffice --headless --convert-to pdf sample_template.docx --outdir /tmp/</code></pre>
+
+            <!-- Section 5: Comparison Matrix -->
+            <h2 id="comparison" class="text-2xl section-header">5 Comparative Analysis Matrix</h2>
             <table class="wiki-table">
                 <thead>
                     <tr>
@@ -509,35 +570,60 @@
                 </tbody>
             </table>
 
-            <!-- Section 5: Implementation & Code Reference -->
-            <h2 id="implementation" class="text-2xl section-header">5 Implementation and Usage</h2>
-            <p class="mb-3">
-                DocuMint is distributed as an open-source Python library and local web studio.
+            <!-- Section 6: Implementation & API Reference -->
+            <h2 id="implementation" class="text-2xl section-header">6 Implementation & API Reference</h2>
+            <p class="mb-3 text-xs">
+                DocuMint can be integrated directly into automated Python pipelines or executed via the local Flask dashboard.
             </p>
 
-            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">5.1 Installation</h3>
-            <pre class="bg-[#f8f9fa] border border-[#a2a9b1] rounded p-3 text-xs font-mono text-[#202122] overflow-x-auto mb-4"><code># Clone repository
-git clone https://github.com/zihaaaad/DocuMint.git
-cd DocuMint
+            <pre class="bg-[#f8f9fa] border border-[#a2a9b1] rounded p-3 text-xs font-mono text-[#202122] overflow-x-auto mb-4"><code>from documint.core import (
+    replace_placeholders_in_doc,
+    UniversalDocumentConverter,
+    SmtpEmailSender,
+    validate_placeholders
+)
+from docx import Document
 
-# Install dependencies via pip or uv
-pip install -r requirements.txt</code></pre>
+# 1. Pre-flight schema validation
+is_valid, missing = validate_placeholders("students.xlsx", "template.docx")
+assert is_valid, f"Missing columns: {missing}"
 
-            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">5.2 Launching the Local Dashboard</h3>
-            <pre class="bg-[#f8f9fa] border border-[#a2a9b1] rounded p-3 text-xs font-mono text-[#202122] overflow-x-auto mb-4"><code># Run local execution server
-python src/main.py
+# 2. Merge placeholders
+doc = Document("template.docx")
+replace_placeholders_in_doc(doc, {
+    "Student_Name": "Zihad Hasan",
+    "Course": "Generative AI Systems",
+    "Grade": "Distinction"
+})
+doc.save("temp_output.docx")
 
-# Access web interface at:
-# http://localhost:5000</code></pre>
+# 3. Universal PDF compile
+converter = UniversalDocumentConverter()
+converter.convert_to_pdf("temp_output.docx", "Zihad_Hasan_Certificate.pdf")
 
-            <!-- Section 6: References & External Links -->
-            <h2 id="references" class="text-2xl section-header">6 References and External Links</h2>
+# 4. Asynchronous SMTP dispatch
+sender = SmtpEmailSender(
+    host="smtp.gmail.com",
+    port=587,
+    username="registrar@institution.edu",
+    password="app-password",
+    use_tls=True
+)
+sender.send_email(
+    to_email="zihad@institution.edu",
+    subject="Official Certificate of Achievement",
+    body_html="&lt;p&gt;Dear Zihad,&lt;br&gt;Your certificate is attached.&lt;/p&gt;",
+    attachments=["Zihad_Hasan_Certificate.pdf"]
+)</code></pre>
+
+            <!-- Section 7: References & Links -->
+            <h2 id="references" class="text-2xl section-header">7 References & External Links</h2>
             <ol class="list-decimal pl-6 space-y-1.5 text-xs text-[#54595d] mb-12">
                 <li id="ref-1">
                     Hasan, Zihad (2026). "DocuMint Source Code and System Documentation". <em>GitHub Repository</em>. Available at: <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="wiki-link">github.com/zihaaaad/DocuMint</a>.
                 </li>
                 <li id="ref-2">
-                    Hasan, Zihad (2026). "Automated Document Compilation in Enterprise Environments". <em>Engineering Portfolio</em>. Available at: <a href="https://zihadhasan.web.app/" target="_blank" class="wiki-link">zihadhasan.web.app</a>.
+                    Hasan, Zihad (2026). "Engineering Specifications for Local-First Document Automation". <em>Developer Platform</em>. Available at: <a href="https://zihadhasan.web.app/" target="_blank" class="wiki-link">zihadhasan.web.app</a>.
                 </li>
                 <li id="ref-3">
                     DocuMint Architectural Specifications (2026). "Zero Cloud Leakage and Local-First Pipeline Design". <em>DocuMint Project Knowledgebase</em>. Available at: <a href="https://zihaaaad.github.io/DocuMint/" class="wiki-link">zihaaaad.github.io/DocuMint</a>.
@@ -547,7 +633,7 @@ python src/main.py
         </main>
     </div>
 
-    <!-- Wikipedia Footer -->
+    <!-- Footer -->
     <footer class="border-t border-[#c8ccd1] bg-[#f8f9fa] py-8 text-xs text-[#54595d]">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
@@ -562,7 +648,6 @@ python src/main.py
         </div>
     </footer>
 
-    <!-- Client-Side Simulator Logic -->
     <script>
         function updateSim() {
             document.getElementById('simName').innerText = document.getElementById('inputName').value || 'Recipient Name';
