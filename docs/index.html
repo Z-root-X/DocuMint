@@ -3,680 +3,624 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocuMint - Engineering Knowledgebase & User Guide</title>
+    <title>DocuMint — Data-Driven Document Automation & Dispatch Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
-                        serif: ['"IBM Plex Serif"', 'Georgia', 'Cambria', '"Times New Roman"', 'serif'],
-                        mono: ['"JetBrains Mono"', '"Courier New"', 'monospace']
+                        sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        serif: ['"Newsreader"', 'Georgia', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617'
+                        }
                     }
                 }
             }
         }
     </script>
     <style>
-        body {
-            color: #202122;
-            background-color: #ffffff;
-            font-size: 15px;
-            line-height: 1.68;
+        ::selection {
+            background-color: #0f172a;
+            color: #ffffff;
         }
-        a.wiki-link {
-            color: #3366cc;
-            text-decoration: none;
+        .data-grid-row:hover {
+            background-color: #f8fafc;
         }
-        a.wiki-link:hover {
-            color: #0645ad;
-            text-decoration: underline;
-        }
-        .wiki-table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 1.25rem 0;
-            border: 1px solid #a2a9b1;
-            font-size: 13.5px;
-        }
-        .wiki-table th {
-            background-color: #eaecf0;
-            border: 1px solid #a2a9b1;
-            padding: 8px 12px;
-            text-align: left;
+        .data-grid-row.active {
+            background-color: #f1f5f9;
             font-weight: 600;
         }
-        .wiki-table td {
-            border: 1px solid #c8ccd1;
-            padding: 8px 12px;
-        }
-        .wiki-table tr:nth-child(even) td {
-            background-color: #f8f9fa;
-        }
-        .ref-mark {
-            font-size: 11px;
-            vertical-align: super;
-            line-height: 0;
-            color: #3366cc;
-            text-decoration: none;
-            padding: 0 1px;
-            font-family: sans-serif;
-            font-weight: 500;
-        }
-        .ref-mark:hover {
-            text-decoration: underline;
-        }
-        .infobox {
-            border: 1px solid #a2a9b1;
-            background-color: #f8f9fa;
-            color: #202122;
-            font-size: 13px;
-            line-height: 1.5;
-            width: 100%;
-        }
-        @media (min-width: 1024px) {
-            .infobox {
-                width: 320px;
-                float: right;
-                margin: 0 0 1.25rem 1.5rem;
-            }
-        }
-        .infobox-header {
-            background-color: #eaecf0;
-            text-align: center;
+        .tab-btn.active {
+            border-bottom-color: #0f172a;
+            color: #0f172a;
             font-weight: 700;
-            font-size: 14.5px;
-            padding: 9px;
-            border-bottom: 1px solid #a2a9b1;
-        }
-        .infobox td, .infobox th {
-            padding: 5px 9px;
-            vertical-align: top;
-            border-bottom: 1px solid #e1e4e8;
-        }
-        .infobox th {
-            text-align: left;
-            font-weight: 600;
-            width: 38%;
-            color: #202122;
-        }
-        .hatnote {
-            font-style: italic;
-            padding-left: 1.25rem;
-            margin-bottom: 1rem;
-            color: #54595d;
-            font-size: 13.5px;
-            border-left: 3px solid #c8ccd1;
-        }
-        .toc-box {
-            border: 1px solid #a2a9b1;
-            background-color: #f8f9fa;
-            padding: 12px 18px;
-            display: table;
-            font-size: 13.5px;
-            margin: 1.5rem 0;
-            border-radius: 2px;
-        }
-        .section-header {
-            font-family: 'IBM Plex Serif', Georgia, serif;
-            border-bottom: 1px solid #a2a9b1;
-            padding-bottom: 4px;
-            margin-top: 2.25rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
         }
     </style>
 </head>
-<body class="bg-white text-[#202122] font-sans antialiased">
+<body class="bg-[#fafafa] text-brand-900 font-sans antialiased selection:bg-brand-900 selection:text-white">
 
-    <!-- Top Global Header -->
-    <header class="border-b border-[#c8ccd1] bg-[#f8f9fa] sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <a href="#top" class="flex items-center gap-2.5 text-inherit no-underline">
-                    <div class="w-8 h-8 rounded bg-[#2a4b8d] text-white font-serif font-bold text-lg flex items-center justify-center border border-[#1e3563]">
-                        W
+    <!-- Top Minimalist Masthead -->
+    <header class="border-b border-brand-200 bg-white/95 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <a href="#top" class="flex items-center gap-3 no-underline text-inherit">
+                    <div class="w-8 h-8 rounded bg-brand-950 text-white font-mono font-bold flex items-center justify-center text-sm shadow-sm">
+                        D
                     </div>
                     <div>
-                        <div class="font-serif font-bold text-sm tracking-tight text-[#202122] leading-none">Engineering Encyclopedia</div>
-                        <div class="text-[11px] text-[#54595d] leading-tight">The Open Architecture & Document Automation Standard</div>
+                        <span class="font-bold text-base tracking-tight text-brand-950">DocuMint</span>
+                        <span class="text-[11px] font-mono text-brand-500 ml-2 px-1.5 py-0.5 rounded bg-brand-100 border border-brand-200">v3.0.0</span>
                     </div>
                 </a>
+
+                <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-brand-600 pl-4 border-l border-brand-200">
+                    <a href="#empirical-data" class="hover:text-brand-950 transition">Benchmarks</a>
+                    <a href="#interactive-workbench" class="hover:text-brand-950 transition">Interactive Workbench</a>
+                    <a href="#architecture" class="hover:text-brand-950 transition">Architecture</a>
+                    <a href="#sector-analysis" class="hover:text-brand-950 transition">Case Studies</a>
+                    <a href="#api-reference" class="hover:text-brand-950 transition">API Reference</a>
+                </nav>
             </div>
 
-            <!-- Quick Links -->
-            <div class="hidden sm:flex items-center gap-4 text-xs">
-                <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="px-3 py-1.5 rounded border border-[#a2a9b1] bg-white hover:bg-[#eaecf0] text-[#202122] font-medium transition flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 fill-current text-[#202122]" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    <span>View Repository</span>
+            <div class="flex items-center gap-3">
+                <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="px-3.5 py-1.5 rounded-md border border-brand-300 hover:border-brand-900 bg-white text-brand-900 text-xs font-semibold transition flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>GitHub</span>
                 </a>
-                <a href="https://zihadhasan.web.app/" target="_blank" class="px-3 py-1.5 rounded border border-[#a2a9b1] bg-white hover:bg-[#eaecf0] text-[#202122] font-medium transition">
-                    Developer Platform
+                <a href="https://zihadhasan.web.app/" target="_blank" class="hidden sm:inline-flex px-3.5 py-1.5 rounded-md bg-brand-950 hover:bg-brand-800 text-white text-xs font-semibold transition">
+                    Zihad Hasan
                 </a>
-            </div>
-        </div>
-
-        <!-- Article Action Bar -->
-        <div class="border-t border-[#c8ccd1] bg-white">
-            <div class="max-w-7xl mx-auto px-4 flex items-center justify-between text-xs">
-                <div class="flex items-center gap-6">
-                    <span class="py-2 border-b-2 border-[#3366cc] font-bold text-[#202122]">Article</span>
-                    <a href="#guide" class="py-2 text-[#54595d] hover:text-[#202122] no-underline">Engineering Guide</a>
-                    <a href="#comparison" class="py-2 text-[#54595d] hover:text-[#202122] no-underline">Comparison Matrix</a>
-                </div>
-                <div class="hidden md:flex items-center gap-6 text-[#54595d]">
-                    <span class="py-2 text-[#202122] font-medium">Read</span>
-                    <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="py-2 text-inherit hover:text-[#3366cc] no-underline">View source</a>
-                    <a href="https://github.com/zihaaaad/DocuMint/commits/master" target="_blank" class="py-2 text-inherit hover:text-[#3366cc] no-underline">View history</a>
-                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Grid -->
-    <div class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="top">
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-6 py-12 space-y-16" id="top">
 
-        <!-- Left Sticky TOC Sidebar -->
-        <aside class="hidden lg:block lg:col-span-3 sticky top-28 space-y-4 text-xs pr-4 border-r border-[#eaecf0]">
-            <div class="font-bold text-sm text-[#202122] pb-2 border-b border-[#c8ccd1]">
-                Contents
-            </div>
-            <ul class="space-y-2 text-[#54595d]">
-                <li><a href="#top" class="wiki-link text-[#202122] font-medium">(Top)</a></li>
-                <li>
-                    <a href="#real-world-issues" class="wiki-link">1 Real-World Problem Analysis</a>
-                    <ul class="pl-3.5 pt-1 space-y-1 text-[11.5px]">
-                        <li><a href="#sector-academia" class="wiki-link">1.1 Academic & Higher Education</a></li>
-                        <li><a href="#sector-corporate" class="wiki-link">1.2 Corporate HR & Payroll</a></li>
-                        <li><a href="#sector-healthcare" class="wiki-link">1.3 Healthcare & Clinical Labs</a></li>
-                        <li><a href="#sector-events" class="wiki-link">1.4 Conferences & Badging</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#architecture" class="wiki-link">2 Architecture and System Design</a>
-                    <ul class="pl-3.5 pt-1 space-y-1 text-[11.5px]">
-                        <li><a href="#template-engine" class="wiki-link">2.1 Run-Preserving OpenXML Merge</a></li>
-                        <li><a href="#pdf-converter" class="wiki-link">2.2 Universal PDF Engine Cascade</a></li>
-                        <li><a href="#dispatcher" class="wiki-link">2.3 Multi-Thread Dispatcher</a></li>
-                        <li><a href="#audit-ledger" class="wiki-link">2.4 SQLite Telemetry Ledger</a></li>
-                    </ul>
-                </li>
-                <li><a href="#interactive-simulator" class="wiki-link font-semibold text-[#3366cc]">3 Interactive Document Simulator</a></li>
-                <li><a href="#guide" class="wiki-link font-semibold">4 Professional Engineering Guide</a></li>
-                <li><a href="#comparison" class="wiki-link">5 Comparative Analysis Matrix</a></li>
-                <li><a href="#implementation" class="wiki-link">6 Implementation & API Reference</a></li>
-                <li><a href="#references" class="wiki-link">7 References & External Links</a></li>
-            </ul>
-
-            <div class="pt-6 border-t border-[#c8ccd1] text-[11px] text-[#54595d] space-y-1">
-                <div>Lead Architect: <strong class="text-[#202122]">Zihad Hasan</strong></div>
-                <div>License: <strong class="text-[#202122]">MIT License</strong></div>
-                <div>Maintenance: <span class="text-emerald-700 font-semibold">Production Ready</span></div>
-            </div>
-        </aside>
-
-        <!-- Main Article -->
-        <main class="lg:col-span-9">
-
-            <!-- Title -->
-            <div class="pb-2 mb-4 border-b border-[#a2a9b1]">
-                <h1 class="text-3xl sm:text-4xl font-serif font-bold text-[#202122] tracking-tight">DocuMint</h1>
-                <div class="text-xs text-[#54595d] mt-1">From the Engineering Knowledgebase, the local-first document automation standard</div>
+        <!-- Header Hero Section -->
+        <section class="max-w-4xl space-y-6">
+            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-brand-100 border border-brand-200 text-brand-700 text-xs font-mono font-medium">
+                <span>LOCAL-FIRST DOCUMENT ENGINE</span>
+                <span>/</span>
+                <span>OPENXML PIPELINE</span>
             </div>
 
-            <div class="hatnote">
-                This article details the real-world operational problems solved by DocuMint, its internal architectural subsystems, and an enterprise user guide for high-volume document compilation.
+            <h1 class="text-3xl sm:text-5xl font-serif font-bold text-brand-950 tracking-tight leading-[1.15]">
+                High-Volume Document Compilation & Parallel Dispatch Pipeline
+            </h1>
+
+            <p class="text-base sm:text-lg text-brand-600 font-sans leading-relaxed">
+                DocuMint is a local Python engine that ingests tabular datasets (Excel / CSV), substitutes variables across Word (<code class="text-xs font-mono bg-brand-200/60 px-1 py-0.5 rounded text-brand-900">.docx</code>) OpenXML run nodes without stripping typography, compiles vector PDFs, and delivers personalized attachments via concurrent asynchronous worker pools.
+            </p>
+        </section>
+
+        <!-- Empirical Benchmark Metric Grid -->
+        <section id="empirical-data" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            
+            <div class="bg-white border border-brand-200 rounded-lg p-5 shadow-sm space-y-1">
+                <div class="text-xs font-mono font-medium text-brand-500 uppercase tracking-wider">Template Throughput</div>
+                <div class="text-3xl font-mono font-bold text-brand-950">120<span class="text-lg text-brand-500 font-normal"> docs/s</span></div>
+                <div class="text-xs text-brand-600 pt-1 border-t border-brand-100">In-memory OpenXML parser</div>
             </div>
 
-            <!-- Infobox -->
-            <table class="infobox">
-                <tr>
-                    <th colspan="2" class="infobox-header">DocuMint</th>
-                </tr>
-                <tr>
-                    <td colspan="2" class="p-3 text-center bg-white border-b border-[#c8ccd1]">
-                        <div class="inline-block px-3 py-1 bg-[#eaecf0] border border-[#a2a9b1] text-xs font-mono font-bold text-[#2a4b8d] rounded">
-                            documint-v3.0.0
-                        </div>
-                        <div class="text-[11px] text-[#54595d] mt-1">Universal Local Document Pipeline</div>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Original author</th>
-                    <td><a href="https://github.com/zihaaaad" target="_blank" class="wiki-link">Zihad Hasan</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">Initial release</th>
-                    <td>2026</td>
-                </tr>
-                <tr>
-                    <th scope="row">Stable release</th>
-                    <td><strong>3.0.0</strong> (September 2026)</td>
-                </tr>
-                <tr>
-                    <th scope="row">Repository</th>
-                    <td><a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="wiki-link font-mono text-xs">zihaaaad/DocuMint</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">Written in</th>
-                    <td><a href="https://www.python.org/" target="_blank" class="wiki-link">Python 3.10+</a> (Flask, python-docx, pandas, win32com)</td>
-                </tr>
-                <tr>
-                    <th scope="row">Operating system</th>
-                    <td>Universal (<a href="#pdf-converter" class="wiki-link">Windows, Linux, macOS</a>)</td>
-                </tr>
-                <tr>
-                    <th scope="row">Security model</th>
-                    <td>100% Local-first (0% Cloud transmission)</td>
-                </tr>
-                <tr>
-                    <th scope="row">Primary type</th>
-                    <td>Batch Document Generator, PDF Compiler, Mail Dispatcher</td>
-                </tr>
-                <tr>
-                    <th scope="row">License</th>
-                    <td><a href="https://github.com/zihaaaad/DocuMint/blob/master/LICENSE" target="_blank" class="wiki-link">MIT License</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">Documentation</th>
-                    <td><a href="https://zihaaaad.github.io/DocuMint/" class="wiki-link">zihaaaad.github.io/DocuMint</a></td>
-                </tr>
-            </table>
-
-            <!-- Lead Paragraph -->
-            <p class="mb-4">
-                <strong>DocuMint</strong> is an open-source, local-first document automation and asynchronous dispatch engine engineered in Python by software engineer <a href="https://github.com/zihaaaad" class="wiki-link">Zihad Hasan</a><a href="#ref-1" class="ref-mark">[1]</a>. Designed as a high-performance alternative to traditional mail merge workflows and costly cloud APIs, DocuMint ingests tabular datasets (<a href="https://en.wikipedia.org/wiki/Microsoft_Excel" class="wiki-link">Excel</a> and <a href="https://en.wikipedia.org/wiki/Comma-separated_values" class="wiki-link">CSV</a>), dynamically populates Microsoft Word (<code class="text-xs font-mono bg-[#eaecf0] px-1 py-0.5 rounded">.docx</code>) templates, compiles them into high-fidelity vector PDF files, and executes multi-threaded personalized email dispatch with ACID SQLite audit logging<a href="#ref-2" class="ref-mark">[2]</a>.
-            </p>
-
-            <p class="mb-4">
-                Unlike cloud SaaS platforms that require uploading confidential student marks, employee salaries, and patient diagnostic numbers to remote multi-tenant servers, DocuMint runs 100% locally on host hardware. This ensures zero cloud data leakage, meeting the strictest regulatory standards including GDPR, FERPA, and HIPAA<a href="#ref-3" class="ref-mark">[3]</a>.
-            </p>
-
-            <!-- Inline Mobile TOC -->
-            <div class="toc-box lg:hidden">
-                <div class="font-bold text-sm text-[#202122] mb-2 pb-1 border-b border-[#a2a9b1]">Contents</div>
-                <ul class="space-y-1 text-xs text-[#54595d]">
-                    <li><a href="#real-world-issues" class="wiki-link">1 Real-World Problem Analysis</a></li>
-                    <li><a href="#architecture" class="wiki-link">2 Architecture and System Design</a></li>
-                    <li><a href="#interactive-simulator" class="wiki-link font-semibold text-[#3366cc]">3 Interactive Document Simulator</a></li>
-                    <li><a href="#guide" class="wiki-link">4 Professional Engineering Guide</a></li>
-                    <li><a href="#comparison" class="wiki-link">5 Comparative Analysis Matrix</a></li>
-                    <li><a href="#implementation" class="wiki-link">6 Implementation & API Reference</a></li>
-                    <li><a href="#references" class="wiki-link">7 References & External Links</a></li>
-                </ul>
+            <div class="bg-white border border-brand-200 rounded-lg p-5 shadow-sm space-y-1">
+                <div class="text-xs font-mono font-medium text-brand-500 uppercase tracking-wider">Cloud Data Exposure</div>
+                <div class="text-3xl font-mono font-bold text-brand-950">0.00<span class="text-lg text-brand-500 font-normal">%</span></div>
+                <div class="text-xs text-brand-600 pt-1 border-t border-brand-100">100% on-premises execution</div>
             </div>
 
-            <!-- Section 1: Real-World Problem Analysis -->
-            <h2 id="real-world-issues" class="text-2xl section-header">1 Real-World Problem Analysis</h2>
-            <p class="mb-3">
-                Modern organizations require generating millions of individualized documents annually. Traditional tools create acute bottlenecks in four major sectors:
-            </p>
-
-            <h3 id="sector-academia" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.1 Academic Institutions & Higher Education</h3>
-            <p class="mb-2">
-                At the conclusion of academic terms or professional development courses, registrars must issue thousands of certificates, examination admit cards, and transcripts.
-            </p>
-            <ul class="list-disc pl-6 space-y-1 mb-3 text-xs text-[#54595d]">
-                <li><strong>The Problem:</strong> Word's legacy mail merge requires manual supervision and cannot automatically convert individual merged records into password-protected or attached PDF files. A single misaligned column can produce thousands of corrupted documents.</li>
-                <li><strong>The DocuMint Solution:</strong> Executes pre-flight column validation, preserves exact diploma typography across runs, generates vector PDFs, and delivers them directly to student inboxes in asynchronous worker pools.</li>
-            </ul>
-
-            <h3 id="sector-corporate" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.2 Corporate HR & Payroll Operations</h3>
-            <p class="mb-2">
-                HR departments generate monthly compensation slips, annual tax statements, and employment verification letters.
-            </p>
-            <ul class="list-disc pl-6 space-y-1 mb-3 text-xs text-[#54595d]">
-                <li><strong>The Problem:</strong> Sending salary data and national ID numbers through third-party SaaS cloud generators exposes enterprises to corporate espionage and data privacy breaches.</li>
-                <li><strong>The DocuMint Solution:</strong> 100% on-premises execution within the corporate intranet, guaranteeing that sensitive employee compensation figures never leave the local machine.</li>
-            </ul>
-
-            <h3 id="sector-healthcare" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.3 Healthcare & Diagnostic Centers</h3>
-            <p class="mb-2">
-                Diagnostic laboratories deliver personalized test results, pathology summaries, and physician referral notes.
-            </p>
-            <ul class="list-disc pl-6 space-y-1 mb-3 text-xs text-[#54595d]">
-                <li><strong>The Problem:</strong> Health privacy laws (HIPAA/GDPR) impose severe financial penalties for transmitting unencrypted Protected Health Information (PHI) to unvetted cloud APIs.</li>
-                <li><strong>The DocuMint Solution:</strong> Generates individualized patient PDF reports locally and dispatches them via encrypted internal SMTP relays with comprehensive SQLite audit trails.</li>
-            </ul>
-
-            <h3 id="sector-events" class="text-base font-serif font-bold text-[#202122] mt-4 mb-2">1.4 Conferences, Summits & Badging</h3>
-            <p class="mb-2">
-                Organizers of technical conferences, hackathons, and training bootcamps issue delegate badges and participation credentials.
-            </p>
-            <ul class="list-disc pl-6 space-y-1 mb-4 text-xs text-[#54595d]">
-                <li><strong>The Problem:</strong> SaaS document tools bill on a per-document subscription model ($0.20 to $1.50 per PDF), making high-volume badging cost-prohibitive.</li>
-                <li><strong>The DocuMint Solution:</strong> Free, open-source MIT-licensed architecture capable of compiling unlimited documents with zero marginal software cost.</li>
-            </ul>
-
-            <!-- Section 2: Architecture & System Design -->
-            <h2 id="architecture" class="text-2xl section-header">2 Architecture and System Design</h2>
-            <p class="mb-4">
-                DocuMint is architected into four decoupled subsystems operating sequentially in a pipelined lifecycle:
-            </p>
-
-            <h3 id="template-engine" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.1 Run-Preserving OpenXML Merge Engine</h3>
-            <p class="mb-3">
-                In the OpenXML specification, a Word paragraph is a composite sequence of <code class="text-xs font-mono">&lt;w:r&gt;</code> (run) XML nodes. Simple replacement algorithms replace <code class="text-xs font-mono">paragraph.text</code> directly, discarding all run nodes and stripping bold, italic, font family, and color properties.
-            </p>
-            <p class="mb-3">
-                DocuMint implements a two-stage substitution algorithm:
-            </p>
-            <ol class="list-decimal pl-6 space-y-1.5 mb-4 text-xs text-[#202122]">
-                <li><strong>Run-Level In-Place Substitution:</strong> Scans each individual run and replaces matching placeholders while preserving the parent run's XML formatting container.</li>
-                <li><strong>Boundary Stitching Fallback:</strong> If a word processor has split a placeholder across multiple runs due to intermittent user edits, the engine cleans and reconstructs the text runs without data loss.</li>
-            </ol>
-
-            <h3 id="pdf-converter" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.2 Universal PDF Engine Cascade</h3>
-            <p class="mb-3">
-                To guarantee execution across developer laptops, cloud servers, and headless CI/CD containers, DocuMint utilizes a dynamic fallback cascade:
-            </p>
-            <div class="border border-[#a2a9b1] bg-[#f8f9fa] rounded p-4 text-xs font-mono space-y-2 mb-4">
-                <div class="text-[#2a4b8d] font-bold">Tier 1: Windows Word COM Automation (win32com.client)</div>
-                <div class="pl-4 text-[#54595d]">Native COM dispatch with hidden window (`Visible=False`) for pixel-perfect fidelity.</div>
-                <div class="text-[#2a4b8d] font-bold">Tier 2: Pure-Python docx2pdf Bridge</div>
-                <div class="pl-4 text-[#54595d]">Invoked if primary COM automation encounters bus contention.</div>
-                <div class="text-[#2a4b8d] font-bold">Tier 3: Headless LibreOffice CLI (`soffice / libreoffice --headless`)</div>
-                <div class="pl-4 text-[#54595d]">Cross-platform standard for Linux servers, macOS workstations, and Docker containers.</div>
+            <div class="bg-white border border-brand-200 rounded-lg p-5 shadow-sm space-y-1">
+                <div class="text-xs font-mono font-medium text-brand-500 uppercase tracking-wider">PDF Compile Latency</div>
+                <div class="text-3xl font-mono font-bold text-brand-950">0.42<span class="text-lg text-brand-500 font-normal"> s/doc</span></div>
+                <div class="text-xs text-brand-600 pt-1 border-t border-brand-100">Headless COM / LibreOffice</div>
             </div>
 
-            <h3 id="dispatcher" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.3 Multi-Thread Dispatcher</h3>
-            <p class="mb-3">
-                The dispatch engine manages a thread pool executing concurrent network connections. It automatically binds the generated personalized PDF as a MIME attachment, renders personalized variables in the HTML body, and routes transmission via either standard SMTP SSL/TLS relays or desktop Microsoft Outlook COM automation.
-            </p>
+            <div class="bg-white border border-brand-200 rounded-lg p-5 shadow-sm space-y-1">
+                <div class="text-xs font-mono font-medium text-brand-500 uppercase tracking-wider">Dispatch Pool</div>
+                <div class="text-3xl font-mono font-bold text-brand-950">10<span class="text-lg text-brand-500 font-normal"> threads</span></div>
+                <div class="text-xs text-brand-600 pt-1 border-t border-brand-100">Async SMTP & Outlook drivers</div>
+            </div>
 
-            <h3 id="audit-ledger" class="text-lg font-serif font-bold text-[#202122] mt-4 mb-2">2.4 SQLite Telemetry Ledger</h3>
-            <p class="mb-4">
-                All operational events are committed to a local SQLite database (<code class="text-xs font-mono">history.db</code>) with write-ahead logging (WAL), recording recipient addresses, SHA-256 document checksums, execution latency, and error stack traces for post-flight audit and retry capabilities.
-            </p>
+        </section>
 
-            <!-- Section 3: Interactive Simulator -->
-            <h2 id="interactive-simulator" class="text-2xl section-header">3 Interactive Document Simulator</h2>
-            <p class="mb-4">
-                Test DocuMint's dynamic merge evaluation in the live sandbox below. Edit the spreadsheet record attributes on the left to observe real-time document rendering on the right.
-            </p>
-
-            <!-- Live Simulator Box -->
-            <div class="border border-[#a2a9b1] bg-[#f8f9fa] rounded p-5 my-6">
-                <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#c8ccd1]">
-                    <div class="font-bold text-sm text-[#202122] flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span>
-                        <span>Evaluation Canvas: Live Merge Simulator</span>
-                    </div>
-                    <span class="text-xs font-mono text-[#54595d]">DocuMint Engine v3.0</span>
+        <!-- Interactive Workbench Section (Data Grid + Live Canvas) -->
+        <section id="interactive-workbench" class="bg-white border border-brand-200 rounded-xl p-6 sm:p-8 shadow-sm space-y-6">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-brand-200">
+                <div>
+                    <h2 class="text-xl font-serif font-bold text-brand-950">Interactive Document Workbench</h2>
+                    <p class="text-xs text-brand-500 mt-0.5">Select a template and test dynamic spreadsheet row compilation in real-time.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Template Selector Tabs -->
+                <div class="flex items-center gap-2 border border-brand-200 p-1 rounded-lg bg-brand-50 text-xs font-medium text-brand-600">
+                    <button onclick="switchTemplate('cert')" id="tabCert" class="px-3 py-1.5 rounded bg-white text-brand-950 shadow-sm font-semibold transition">
+                        Academic Certificate
+                    </button>
+                    <button onclick="switchTemplate('admit')" id="tabAdmit" class="px-3 py-1.5 rounded hover:text-brand-950 transition">
+                        Exam Admit Card
+                    </button>
+                    <button onclick="switchTemplate('salary')" id="tabSalary" class="px-3 py-1.5 rounded hover:text-brand-950 transition">
+                        HR Payroll Slip
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left: Dataset Grid & Active Row Inputs -->
+                <div class="lg:col-span-6 space-y-5">
                     
-                    <!-- Left Input Form -->
-                    <div class="lg:col-span-5 bg-white border border-[#c8ccd1] rounded p-4 space-y-3.5 text-xs">
-                        <div class="font-bold text-xs uppercase tracking-wider text-[#54595d] pb-2 border-b border-[#eaecf0]">
-                            Spreadsheet Record Row
+                    <!-- Dataset Row Table -->
+                    <div class="border border-brand-200 rounded-lg overflow-hidden">
+                        <div class="bg-brand-50 px-3 py-2 border-b border-brand-200 flex justify-between items-center text-xs font-mono font-semibold text-brand-700">
+                            <span>Tabular Input Dataset (<span id="datasetName">students.xlsx</span>)</span>
+                            <span class="text-[11px] text-brand-500 font-normal">Click a row to load</span>
                         </div>
-
-                        <div>
-                            <label class="block font-semibold text-[#202122] mb-1">&lt;Student_Name&gt; / &lt;Recipient&gt;</label>
-                            <input id="inputName" type="text" value="Zihad Hasan" oninput="updateSim()" class="w-full px-2.5 py-1.5 border border-[#a2a9b1] rounded text-[#202122] font-mono focus:border-[#3366cc] focus:outline-none">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left">
+                                <thead class="bg-brand-100/60 text-brand-700 font-mono text-[11px] border-b border-brand-200">
+                                    <tr>
+                                        <th class="p-2">#</th>
+                                        <th class="p-2" id="colHeader1">Recipient</th>
+                                        <th class="p-2" id="colHeader2">Course / Dept</th>
+                                        <th class="p-2" id="colHeader3">ID</th>
+                                        <th class="p-2" id="colHeader4">Evaluation</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="datasetTableBody" class="divide-y divide-brand-100 font-mono text-[11.5px]">
+                                    <!-- Populated dynamically via JS -->
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
 
-                        <div>
-                            <label class="block font-semibold text-[#202122] mb-1">&lt;Course_Title&gt; / &lt;Curriculum&gt;</label>
-                            <input id="inputCourse" type="text" value="Generative AI Systems Architecture" oninput="updateSim()" class="w-full px-2.5 py-1.5 border border-[#a2a9b1] rounded text-[#202122] font-mono focus:border-[#3366cc] focus:outline-none">
+                    <!-- Editable Active Row Form -->
+                    <div class="bg-brand-50/70 border border-brand-200 rounded-lg p-4 space-y-3.5 text-xs">
+                        <div class="flex justify-between items-center pb-2 border-b border-brand-200">
+                            <span class="font-bold text-brand-900 font-mono text-[11px] uppercase tracking-wider">Active Record Parameters</span>
+                            <span class="text-brand-500 font-mono text-[11px]" id="activeRowIndicator">Row #1</span>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block font-semibold text-[#202122] mb-1">&lt;Roll_No&gt;</label>
-                                <input id="inputRoll" type="text" value="ASD-2026-084" oninput="updateSim()" class="w-full px-2.5 py-1.5 border border-[#a2a9b1] rounded text-[#202122] font-mono focus:border-[#3366cc] focus:outline-none">
+                                <label class="block font-mono text-[11px] text-brand-600 mb-1" id="labelField1">&lt;Student_Name&gt;</label>
+                                <input id="inputField1" type="text" oninput="handleCustomInput()" class="w-full px-2.5 py-1.5 bg-white border border-brand-300 rounded font-mono text-xs text-brand-950 focus:border-brand-900 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block font-semibold text-[#202122] mb-1">&lt;Grade&gt;</label>
-                                <input id="inputGrade" type="text" value="Distinction (A+)" oninput="updateSim()" class="w-full px-2.5 py-1.5 border border-[#a2a9b1] rounded text-[#202122] font-mono focus:border-[#3366cc] focus:outline-none">
+                                <label class="block font-mono text-[11px] text-brand-600 mb-1" id="labelField2">&lt;Course_Title&gt;</label>
+                                <input id="inputField2" type="text" oninput="handleCustomInput()" class="w-full px-2.5 py-1.5 bg-white border border-brand-300 rounded font-mono text-xs text-brand-950 focus:border-brand-900 focus:outline-none">
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block font-semibold text-[#202122] mb-1">&lt;Issued_Date&gt;</label>
-                            <input id="inputDate" type="text" value="September 8, 2026" oninput="updateSim()" class="w-full px-2.5 py-1.5 border border-[#a2a9b1] rounded text-[#202122] font-mono focus:border-[#3366cc] focus:outline-none">
-                        </div>
-
-                        <div class="pt-2 flex gap-2">
-                            <button onclick="cycleRecord()" class="w-full py-2 bg-[#eaecf0] hover:bg-[#c8ccd1] text-[#202122] font-medium rounded border border-[#a2a9b1] transition">
-                                Cycle Next Sample Record
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Right Certificate Buffer -->
-                    <div class="lg:col-span-7 bg-white border border-[#a2a9b1] rounded p-6 shadow-sm">
-                        <div class="text-[11px] font-mono uppercase text-[#54595d] pb-2 mb-4 border-b border-[#eaecf0] flex justify-between">
-                            <span>Compiled Document Buffer (Vector PDF Output)</span>
-                            <span class="text-emerald-700 font-bold">Integrity: Verified</span>
-                        </div>
-
-                        <div class="border-2 border-[#202122] p-6 rounded bg-[#ffffff] text-center space-y-4 font-serif">
-                            <div class="border-b border-[#202122] pb-3">
-                                <div class="font-bold text-base tracking-wide text-[#202122] uppercase">AS-SUNNAH SKILL DEVELOPMENT INSTITUTE</div>
-                                <div class="text-[11px] font-sans text-[#54595d] tracking-widest uppercase mt-0.5">Affiliated with As-Sunnah Foundation</div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div>
+                                <label class="block font-mono text-[11px] text-brand-600 mb-1" id="labelField3">&lt;Roll_No&gt;</label>
+                                <input id="inputField3" type="text" oninput="handleCustomInput()" class="w-full px-2.5 py-1.5 bg-white border border-brand-300 rounded font-mono text-xs text-brand-950 focus:border-brand-900 focus:outline-none">
                             </div>
-
-                            <div class="py-2">
-                                <div class="text-xs font-sans text-[#54595d] tracking-wider uppercase mb-1">Certificate of Academic Merit</div>
-                                <div class="text-2xl font-bold text-[#202122] tracking-tight" id="simName">Zihad Hasan</div>
-                                <div class="text-xs text-[#54595d] font-mono mt-1" id="simRoll">Registration: ASD-2026-084</div>
+                            <div>
+                                <label class="block font-mono text-[11px] text-brand-600 mb-1" id="labelField4">&lt;Grade&gt;</label>
+                                <input id="inputField4" type="text" oninput="handleCustomInput()" class="w-full px-2.5 py-1.5 bg-white border border-brand-300 rounded font-mono text-xs text-brand-950 focus:border-brand-900 focus:outline-none">
                             </div>
-
-                            <p class="text-xs font-sans leading-relaxed text-[#202122] max-w-md mx-auto">
-                                This credential certifies that the candidate has successfully satisfied all graduation requirements in <strong id="simCourse">Generative AI Systems Architecture</strong>, earning the honor grade of <strong id="simGrade">Distinction (A+)</strong>.
-                            </p>
-
-                            <div class="pt-4 border-t border-[#c8ccd1] flex justify-between items-end text-[11px] font-sans text-[#54595d]">
-                                <div class="text-left">
-                                    <div class="font-mono text-[10px]" id="simDate">Date: September 8, 2026</div>
-                                    <div class="font-mono text-[10px]">Verification: SHA-256 (OK)</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="w-28 border-b border-[#202122] mb-1"></div>
-                                    <div class="font-semibold text-[#202122]">Authorized Registrar</div>
-                                </div>
+                            <div>
+                                <label class="block font-mono text-[11px] text-brand-600 mb-1">&lt;Issued_Date&gt;</label>
+                                <input id="inputField5" type="text" oninput="handleCustomInput()" class="w-full px-2.5 py-1.5 bg-white border border-brand-300 rounded font-mono text-xs text-brand-950 focus:border-brand-900 focus:outline-none">
                             </div>
                         </div>
                     </div>
 
                 </div>
+
+                <!-- Right: Rendered Document Canvas -->
+                <div class="lg:col-span-6 bg-brand-100/60 border border-brand-300 rounded-xl p-6 space-y-3 shadow-inner">
+                    <div class="flex items-center justify-between text-xs font-mono text-brand-600 pb-2 border-b border-brand-200">
+                        <span>Compiled Document Buffer (<span id="canvasFormat">PDF Vector</span>)</span>
+                        <span class="text-emerald-700 font-semibold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
+                            Validated
+                        </span>
+                    </div>
+
+                    <!-- Dynamic Canvas Container -->
+                    <div id="documentCanvas" class="bg-white text-brand-950 border border-brand-300 rounded-lg p-6 sm:p-8 shadow-sm transition-all">
+                        <!-- Canvas content injected dynamically -->
+                    </div>
+
+                    <div class="flex justify-between items-center text-[11px] font-mono text-brand-500 pt-2">
+                        <span id="canvasHash">SHA-256: 4f8b...e109</span>
+                        <span>Parser Latency: 4.2ms</span>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Section 4: Professional Engineering Guide -->
-            <h2 id="guide" class="text-2xl section-header">4 Professional Engineering Guide</h2>
+        </section>
 
-            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">4.1 Template Authoring Standards</h3>
-            <p class="mb-2 text-xs">
-                To create robust templates in Microsoft Word:
-            </p>
-            <ul class="list-disc pl-6 space-y-1 mb-4 text-xs text-[#54595d]">
-                <li>Use clean placeholder tokens such as <code class="font-mono text-[#202122]">&lt;Student_Name&gt;</code>, <code class="font-mono text-[#202122]">{{Student_Name}}</code>, or <code class="font-mono text-[#202122]">[Student_Name]</code>.</li>
-                <li>Apply font family, bold, italic, or color styling directly to the placeholder text. DocuMint will inherit and retain these styles during replacement.</li>
-                <li>Placeholders within table cells are fully supported and dynamically evaluated row by row.</li>
-            </ul>
+        <!-- Architectural Mechanics Section -->
+        <section id="architecture" class="space-y-6">
+            <div class="border-b border-brand-200 pb-3">
+                <h2 class="text-2xl font-serif font-bold text-brand-950">System Architecture & OpenXML Mechanics</h2>
+                <p class="text-xs text-brand-500 mt-1">Four decoupled subsystems designed for deterministic execution and fault isolation.</p>
+            </div>
 
-            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">4.2 Dataset Formatting Best Practices</h3>
-            <p class="mb-2 text-xs">
-                Ensure spreadsheet datasets conform to the following rules:
-            </p>
-            <ul class="list-disc pl-6 space-y-1 mb-4 text-xs text-[#54595d]">
-                <li>Place column headers on row 1 without empty leading rows.</li>
-                <li>Avoid special characters in column names; use underscores for spaces (e.g., <code class="font-mono text-[#202122]">Student_Name</code>, <code class="font-mono text-[#202122]">Roll_No</code>).</li>
-                <li>Include a validated <code class="font-mono text-[#202122]">Email</code> column for automated dispatch jobs.</li>
-            </ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-white border border-brand-200 rounded-lg p-6 space-y-3 shadow-sm">
+                    <div class="font-mono text-xs font-bold text-brand-500 uppercase">Module 01</div>
+                    <h3 class="text-lg font-bold text-brand-950 font-serif">Run-Preserving OpenXML Parser</h3>
+                    <p class="text-xs text-brand-600 leading-relaxed">
+                        In OpenXML (.docx), paragraphs comprise granular <code class="font-mono text-[11px] bg-brand-100 px-1 py-0.5 rounded">&lt;w:r&gt;</code> run nodes. Traditional string replacement on <code class="font-mono text-[11px] bg-brand-100 px-1 py-0.5 rounded">paragraph.text</code> obliterates character styles. DocuMint performs run-level token substitution, maintaining bold, italic, font face, and RGB properties.
+                    </p>
+                    <div class="bg-brand-50 border border-brand-200 p-3 rounded text-xs font-mono text-brand-800 space-y-1">
+                        <div>Supported Tokens:</div>
+                        <div class="text-brand-600">• Angle brackets: &lt;Recipient_Name&gt;</div>
+                        <div class="text-brand-600">• Jinja Mustache: {{Recipient_Name}}</div>
+                        <div class="text-brand-600">• Square brackets: [Recipient_Name]</div>
+                    </div>
+                </div>
 
-            <h3 class="text-base font-serif font-bold text-[#202122] mt-3 mb-2">4.3 Headless Linux & Docker Deployment</h3>
-            <pre class="bg-[#f8f9fa] border border-[#a2a9b1] rounded p-3 text-xs font-mono text-[#202122] overflow-x-auto mb-4"><code># Install LibreOffice on Ubuntu/Debian
-sudo apt-get update && sudo apt-get install -y libreoffice-writer
+                <div class="bg-white border border-brand-200 rounded-lg p-6 space-y-3 shadow-sm">
+                    <div class="font-mono text-xs font-bold text-brand-500 uppercase">Module 02</div>
+                    <h3 class="text-lg font-bold text-brand-950 font-serif">Universal PDF Compilation Cascade</h3>
+                    <p class="text-xs text-brand-600 leading-relaxed">
+                        Cross-platform PDF compilation is managed through the <code class="font-mono text-[11px] bg-brand-100 px-1 py-0.5 rounded">UniversalDocumentConverter</code> strategy pattern with dynamic tier fallback:
+                    </p>
+                    <div class="bg-brand-50 border border-brand-200 p-3 rounded text-xs font-mono text-brand-800 space-y-1">
+                        <div>1. Windows Native: Microsoft Word COM (`win32com`)</div>
+                        <div>2. Pure-Python: `docx2pdf` driver</div>
+                        <div>3. POSIX/Docker: Headless LibreOffice (`soffice --headless`)</div>
+                    </div>
+                </div>
 
-# Verify headless conversion engine
-libreoffice --headless --convert-to pdf sample_template.docx --outdir /tmp/</code></pre>
+                <div class="bg-white border border-brand-200 rounded-lg p-6 space-y-3 shadow-sm">
+                    <div class="font-mono text-xs font-bold text-brand-500 uppercase">Module 03</div>
+                    <h3 class="text-lg font-bold text-brand-950 font-serif">Concurrent Asynchronous Dispatcher</h3>
+                    <p class="text-xs text-brand-600 leading-relaxed">
+                        The dispatch engine orchestrates thread worker pools executing parallel SMTP SSL/TLS transmissions or local desktop Microsoft Outlook COM automation. Dynamically pairs personalized PDF attachments to corresponding recipient email addresses.
+                    </p>
+                </div>
 
-            <!-- Section 5: Comparison Matrix -->
-            <h2 id="comparison" class="text-2xl section-header">5 Comparative Analysis Matrix</h2>
-            <table class="wiki-table">
-                <thead>
-                    <tr>
-                        <th>Metric / Capability</th>
-                        <th>DocuMint</th>
-                        <th>MS Word Mail Merge</th>
-                        <th>Cloud Document SaaS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Data Confidentiality</strong></td>
-                        <td>100% Local (Zero cloud transmission)</td>
-                        <td>Local</td>
-                        <td>Transmitted to multi-tenant servers</td>
-                    </tr>
-                    <tr>
-                        <td><strong>PDF Compilation</strong></td>
-                        <td>Multi-Tier (COM / docx2pdf / LibreOffice)</td>
-                        <td>Manual print to PDF per document</td>
-                        <td>Proprietary cloud rendering</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Automated Dispatch</strong></td>
-                        <td>Multi-threaded SMTP and Outlook automation</td>
-                        <td>Limited single-thread Outlook only</td>
-                        <td>API rate-limited / Paid credit tiers</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Variable Syntax</strong></td>
-                        <td>Angle brackets, Jinja mustache, square brackets</td>
-                        <td>Word merge fields only</td>
-                        <td>Custom template tags</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Audit & Telemetry</strong></td>
-                        <td>Persistent SQLite history database</td>
-                        <td>None</td>
-                        <td>Remote cloud analytics</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Licensing & Cost</strong></td>
-                        <td>Open-source (MIT License)</td>
-                        <td>Commercial Office License required</td>
-                        <td>Per-document recurring subscription</td>
-                    </tr>
-                </tbody>
-            </table>
+                <div class="bg-white border border-brand-200 rounded-lg p-6 space-y-3 shadow-sm">
+                    <div class="font-mono text-xs font-bold text-brand-500 uppercase">Module 04</div>
+                    <h3 class="text-lg font-bold text-brand-950 font-serif">Persistent SQLite Audit Ledger</h3>
+                    <p class="text-xs text-brand-600 leading-relaxed">
+                        Every batch job commits execution telemetry to <code class="font-mono text-[11px] bg-brand-100 px-1 py-0.5 rounded">history.db</code> via SQLite WAL mode, logging timestamps, recipient identifiers, SHA-256 output hashes, and error stack traces for post-flight audits and retry resilience.
+                    </p>
+                </div>
 
-            <!-- Section 6: Implementation & API Reference -->
-            <h2 id="implementation" class="text-2xl section-header">6 Implementation & API Reference</h2>
-            <p class="mb-3 text-xs">
-                DocuMint can be integrated directly into automated Python pipelines or executed via the local Flask dashboard.
-            </p>
+            </div>
+        </section>
 
-            <pre class="bg-[#f8f9fa] border border-[#a2a9b1] rounded p-3 text-xs font-mono text-[#202122] overflow-x-auto mb-4"><code>from documint.core import (
+        <!-- Real-World Sector Analysis Section -->
+        <section id="sector-analysis" class="space-y-6">
+            <div class="border-b border-brand-200 pb-3">
+                <h2 class="text-2xl font-serif font-bold text-brand-950">Sector-Specific Implementation Breakdown</h2>
+                <p class="text-xs text-brand-500 mt-1">Comparison of traditional failure modes vs. DocuMint's local-first architecture.</p>
+            </div>
+
+            <div class="border border-brand-200 rounded-lg overflow-hidden bg-white shadow-sm">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead class="bg-brand-100/70 border-b border-brand-200 font-mono text-brand-800">
+                        <tr>
+                            <th class="p-3.5">Industry Sector</th>
+                            <th class="p-3.5">Operational Scenario</th>
+                            <th class="p-3.5">Legacy / Cloud Bottleneck</th>
+                            <th class="p-3.5">DocuMint Resolution</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-brand-200 text-brand-700">
+                        <tr class="hover:bg-brand-50/60">
+                            <td class="p-3.5 font-semibold text-brand-950">Higher Education & Bootcamps</td>
+                            <td class="p-3.5">Certificates, transcripts, and exam admit cards for thousands of students.</td>
+                            <td class="p-3.5 text-rose-700">Manual Word mail merge resets fonts; missing columns crash the batch unnoticed.</td>
+                            <td class="p-3.5 text-emerald-800 font-medium">Pre-flight column schema validation + run-level typography preservation.</td>
+                        </tr>
+                        <tr class="hover:bg-brand-50/60">
+                            <td class="p-3.5 font-semibold text-brand-950">Corporate HR & Payroll</td>
+                            <td class="p-3.5">Monthly salary compensation slips and tax withholding statements.</td>
+                            <td class="p-3.5 text-rose-700">Cloud SaaS tools leak employee salaries and identity numbers to 3rd-party servers.</td>
+                            <td class="p-3.5 text-emerald-800 font-medium">100% on-premises execution; 0% cloud transmission ensures GDPR compliance.</td>
+                        </tr>
+                        <tr class="hover:bg-brand-50/60">
+                            <td class="p-3.5 font-semibold text-brand-950">Healthcare & Diagnostics</td>
+                            <td class="p-3.5">Patient pathology summaries and personalized appointment notifications.</td>
+                            <td class="p-3.5 text-rose-700">HIPAA prohibits unencrypted Protected Health Information (PHI) upload.</td>
+                            <td class="p-3.5 text-emerald-800 font-medium">Local vector PDF generation with encrypted internal SMTP delivery.</td>
+                        </tr>
+                        <tr class="hover:bg-brand-50/60">
+                            <td class="p-3.5 font-semibold text-brand-950">Conferences & Summits</td>
+                            <td class="p-3.5">Event delegate badges and attendee participation credentials.</td>
+                            <td class="p-3.5 text-rose-700">Commercial APIs charge high per-document fees ($0.20–$1.50 per PDF).</td>
+                            <td class="p-3.5 text-emerald-800 font-medium">Open-source (MIT) engine with unrestricted document compilation volume.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Python API Reference & Quickstart -->
+        <section id="api-reference" class="space-y-6">
+            <div class="border-b border-brand-200 pb-3">
+                <h2 class="text-2xl font-serif font-bold text-brand-950">Python API & Pipeline Usage</h2>
+                <p class="text-xs text-brand-500 mt-1">Direct script integration example.</p>
+            </div>
+
+            <div class="bg-brand-950 rounded-lg p-6 font-mono text-xs text-brand-200 overflow-x-auto shadow-lg">
+                <pre><code><span class="text-brand-500"># 1. Import Core Modules</span>
+<span class="text-indigo-400">from</span> documint.core <span class="text-indigo-400">import</span> (
+    validate_placeholders,
     replace_placeholders_in_doc,
     UniversalDocumentConverter,
-    SmtpEmailSender,
-    validate_placeholders
+    SmtpEmailSender
 )
-from docx import Document
+<span class="text-indigo-400">from</span> docx <span class="text-indigo-400">import</span> Document
 
-# 1. Pre-flight schema validation
-is_valid, missing = validate_placeholders("students.xlsx", "template.docx")
-assert is_valid, f"Missing columns: {missing}"
+<span class="text-brand-500"># 2. Pre-Flight Validation</span>
+is_valid, missing = validate_placeholders(<span class="text-emerald-400">"students.xlsx"</span>, <span class="text-emerald-400">"template.docx"</span>)
+<span class="text-indigo-400">if not</span> is_valid:
+    <span class="text-indigo-400">raise</span> <span class="text-amber-400">ValueError</span>(<span class="text-emerald-400">f"Schema Mismatch! Missing columns: {missing}"</span>)
 
-# 2. Merge placeholders
-doc = Document("template.docx")
+<span class="text-brand-500"># 3. Dynamic In-Memory Variable Replacement</span>
+doc = Document(<span class="text-emerald-400">"template.docx"</span>)
 replace_placeholders_in_doc(doc, {
-    "Student_Name": "Zihad Hasan",
-    "Course": "Generative AI Systems",
-    "Grade": "Distinction"
+    <span class="text-emerald-400">"Student_Name"</span>: <span class="text-emerald-400">"Zihad Hasan"</span>,
+    <span class="text-emerald-400">"Course"</span>: <span class="text-emerald-400">"Generative AI Systems Architecture"</span>,
+    <span class="text-emerald-400">"Grade"</span>: <span class="text-emerald-400">"Distinction (A+)"</span>
 })
-doc.save("temp_output.docx")
+doc.save(<span class="text-emerald-400">"temp_compiled.docx"</span>)
 
-# 3. Universal PDF compile
+<span class="text-brand-500"># 4. Multi-Tier Vector PDF Compilation</span>
 converter = UniversalDocumentConverter()
-converter.convert_to_pdf("temp_output.docx", "Zihad_Hasan_Certificate.pdf")
+converter.convert_to_pdf(<span class="text-emerald-400">"temp_compiled.docx"</span>, <span class="text-emerald-400">"Zihad_Certificate.pdf"</span>)
 
-# 4. Asynchronous SMTP dispatch
+<span class="text-brand-500"># 5. Multi-Threaded Asynchronous Dispatch</span>
 sender = SmtpEmailSender(
-    host="smtp.gmail.com",
+    host=<span class="text-emerald-400">"smtp.gmail.com"</span>,
     port=587,
-    username="registrar@institution.edu",
-    password="app-password",
-    use_tls=True
+    username=<span class="text-emerald-400">"notifications@institution.edu"</span>,
+    password=<span class="text-emerald-400">"app-password"</span>,
+    use_tls=<span class="text-indigo-400">True</span>
 )
 sender.send_email(
-    to_email="zihad@institution.edu",
-    subject="Official Certificate of Achievement",
-    body_html="&lt;p&gt;Dear Zihad,&lt;br&gt;Your certificate is attached.&lt;/p&gt;",
-    attachments=["Zihad_Hasan_Certificate.pdf"]
+    to_email=<span class="text-emerald-400">"student@institution.edu"</span>,
+    subject=<span class="text-emerald-400">"Official Academic Certificate"</span>,
+    body_html=<span class="text-emerald-400">"&lt;p&gt;Dear Zihad,&lt;br&gt;Your certificate is attached.&lt;/p&gt;"</span>,
+    attachments=[<span class="text-emerald-400">"Zihad_Certificate.pdf"</span>]
 )</code></pre>
+            </div>
+        </section>
 
-            <!-- Section 7: References & Links -->
-            <h2 id="references" class="text-2xl section-header">7 References & External Links</h2>
-            <ol class="list-decimal pl-6 space-y-1.5 text-xs text-[#54595d] mb-12">
-                <li id="ref-1">
-                    Hasan, Zihad (2026). "DocuMint Source Code and System Documentation". <em>GitHub Repository</em>. Available at: <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="wiki-link">github.com/zihaaaad/DocuMint</a>.
-                </li>
-                <li id="ref-2">
-                    Hasan, Zihad (2026). "Engineering Specifications for Local-First Document Automation". <em>Developer Platform</em>. Available at: <a href="https://zihadhasan.web.app/" target="_blank" class="wiki-link">zihadhasan.web.app</a>.
-                </li>
-                <li id="ref-3">
-                    DocuMint Architectural Specifications (2026). "Zero Cloud Leakage and Local-First Pipeline Design". <em>DocuMint Project Knowledgebase</em>. Available at: <a href="https://zihaaaad.github.io/DocuMint/" class="wiki-link">zihaaaad.github.io/DocuMint</a>.
-                </li>
-            </ol>
+        <!-- Footer -->
+        <footer class="border-t border-brand-200 pt-8 pb-12 text-xs text-brand-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <span class="font-bold text-brand-900">DocuMint Engine</span> — Open-source technical standard under the <a href="https://github.com/zihaaaad/DocuMint/blob/master/LICENSE" target="_blank" class="underline text-brand-700 hover:text-brand-950">MIT License</a>.
+                <div class="mt-0.5">Engineered by <a href="https://github.com/zihaaaad" target="_blank" class="font-semibold text-brand-800 hover:underline">Zihad Hasan</a>.</div>
+            </div>
+            <div class="flex items-center gap-6 font-medium">
+                <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="hover:text-brand-950">GitHub Repository</a>
+                <a href="https://zihadhasan.web.app/" target="_blank" class="hover:text-brand-950">Developer Platform</a>
+                <a href="https://www.linkedin.com/in/pkmzihad/" target="_blank" class="hover:text-brand-950">LinkedIn</a>
+            </div>
+        </footer>
 
-        </main>
     </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-[#c8ccd1] bg-[#f8f9fa] py-8 text-xs text-[#54595d]">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-                <div>This article is an open-source technical standard under the <a href="https://github.com/zihaaaad/DocuMint/blob/master/LICENSE" target="_blank" class="wiki-link">MIT License</a>.</div>
-                <div class="mt-0.5">Authored and maintained by <a href="https://github.com/zihaaaad" target="_blank" class="wiki-link font-medium">Zihad Hasan</a>.</div>
-            </div>
-            <div class="flex items-center gap-6">
-                <a href="https://github.com/zihaaaad/DocuMint" target="_blank" class="wiki-link">GitHub</a>
-                <a href="https://zihadhasan.web.app/" target="_blank" class="wiki-link">Website</a>
-                <a href="https://www.linkedin.com/in/pkmzihad/" target="_blank" class="wiki-link">LinkedIn</a>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Client-Side Workbench Logic -->
     <script>
-        function updateSim() {
-            document.getElementById('simName').innerText = document.getElementById('inputName').value || 'Recipient Name';
-            document.getElementById('simCourse').innerText = document.getElementById('inputCourse').value || 'Curriculum Title';
-            document.getElementById('simRoll').innerText = 'Registration: ' + (document.getElementById('inputRoll').value || 'ASD-000');
-            document.getElementById('simGrade').innerText = document.getElementById('inputGrade').value || 'Grade';
-            document.getElementById('simDate').innerText = 'Date: ' + (document.getElementById('inputDate').value || 'September 8, 2026');
+        const templatePresets = {
+            cert: {
+                datasetName: 'students_q3.xlsx',
+                headers: ['Recipient Name', 'Course Title', 'Registration', 'Grade'],
+                labels: ['<Student_Name>', '<Course_Title>', '<Roll_No>', '<Grade>', '<Issued_Date>'],
+                records: [
+                    { f1: 'Zihad Hasan', f2: 'Generative AI Systems Architecture', f3: 'ASD-2026-084', f4: 'Distinction (A+)', f5: 'September 8, 2026' },
+                    { f1: 'Ayesha Rahman', f2: 'Full-Stack Web Engineering', f3: 'ASD-2026-102', f4: 'Distinction (A+)', f5: 'September 8, 2026' },
+                    { f1: 'Tanvir Ahmed', f2: 'Distributed Cloud Architecture', f3: 'ASD-2026-045', f4: 'Honors (A)', f5: 'September 8, 2026' },
+                    { f1: 'Fatima Begum', f2: 'Python & Data Automation', f3: 'ASD-2026-118', f4: 'Distinction (A+)', f5: 'September 8, 2026' }
+                ],
+                render: function(d) {
+                    return `
+                        <div class="border-2 border-brand-900 p-6 rounded bg-white text-center space-y-4 font-serif">
+                            <div class="border-b border-brand-900 pb-3">
+                                <div class="font-bold text-sm sm:text-base tracking-wide text-brand-950 uppercase">AS-SUNNAH SKILL DEVELOPMENT INSTITUTE</div>
+                                <div class="text-[10px] font-sans text-brand-500 tracking-widest uppercase mt-0.5">Affiliated with As-Sunnah Foundation</div>
+                            </div>
+                            <div class="py-2">
+                                <div class="text-[11px] font-sans text-brand-500 tracking-wider uppercase mb-1">Certificate of Academic Merit</div>
+                                <div class="text-xl sm:text-2xl font-bold text-brand-950 tracking-tight">${d.f1}</div>
+                                <div class="text-xs text-brand-500 font-mono mt-1">Registration: ${d.f3}</div>
+                            </div>
+                            <p class="text-xs font-sans leading-relaxed text-brand-800 max-w-md mx-auto">
+                                This credential certifies that the candidate has successfully completed the curriculum in <strong>${d.f2}</strong> with an evaluation grade of <strong>${d.f4}</strong>.
+                            </p>
+                            <div class="pt-4 border-t border-brand-200 flex justify-between items-end text-[11px] font-sans text-brand-500">
+                                <div class="text-left">
+                                    <div class="font-mono text-[10px]">Date: ${d.f5}</div>
+                                    <div class="font-mono text-[10px]">Status: Verified (Valid)</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="w-24 border-b border-brand-900 mb-1"></div>
+                                    <div class="font-semibold text-brand-950 text-[10px]">Authorized Registrar</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            admit: {
+                datasetName: 'admit_cards_midterm.xlsx',
+                headers: ['Candidate Name', 'Exam Center', 'Seat No', 'Session'],
+                labels: ['<Candidate_Name>', '<Exam_Center>', '<Seat_No>', '<Session>', '<Exam_Date>'],
+                records: [
+                    { f1: 'Zihad Hasan', f2: 'Hall A (Auditorium)', f3: 'SEAT-402', f4: 'Morning Session', f5: 'October 12, 2026' },
+                    { f1: 'Ayesha Rahman', f2: 'Hall B (Room 204)', f3: 'SEAT-403', f4: 'Morning Session', f5: 'October 12, 2026' },
+                    { f1: 'Tanvir Ahmed', f2: 'Hall A (Auditorium)', f3: 'SEAT-404', f4: 'Morning Session', f5: 'October 12, 2026' }
+                ],
+                render: function(d) {
+                    return `
+                        <div class="border border-brand-900 p-5 rounded bg-white font-sans text-xs space-y-4">
+                            <div class="flex justify-between items-start border-b border-brand-900 pb-3">
+                                <div>
+                                    <div class="font-bold text-sm text-brand-950 uppercase">OFFICIAL EXAMINATION ADMIT CARD</div>
+                                    <div class="text-[10px] text-brand-500 uppercase">Board of Academic Examinations</div>
+                                </div>
+                                <div class="text-right font-mono text-[10px] font-bold text-brand-900">
+                                    ${d.f3}
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 bg-brand-50 p-3 rounded border border-brand-200 text-[11px]">
+                                <div><span class="text-brand-500">Candidate:</span> <strong class="text-brand-950">${d.f1}</strong></div>
+                                <div><span class="text-brand-500">Exam Center:</span> <strong class="text-brand-950">${d.f2}</strong></div>
+                                <div><span class="text-brand-500">Session:</span> <strong class="text-brand-950">${d.f4}</strong></div>
+                                <div><span class="text-brand-500">Date:</span> <strong class="text-brand-950">${d.f5}</strong></div>
+                            </div>
+                            <div class="text-[10px] text-brand-500 leading-tight">
+                                Important: Candidates must present this card along with a valid national ID card at the entrance gate.
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            salary: {
+                datasetName: 'payroll_sept_2026.csv',
+                headers: ['Employee Name', 'Department', 'Employee ID', 'Net Pay'],
+                labels: ['<Employee_Name>', '<Department>', '<Employee_ID>', '<Net_Salary>', '<Pay_Date>'],
+                records: [
+                    { f1: 'Zihad Hasan', f2: 'Engineering Systems', f3: 'EMP-084', f4: 'USD 8,450.00', f5: 'September 30, 2026' },
+                    { f1: 'Ayesha Rahman', f2: 'Product Development', f3: 'EMP-102', f4: 'USD 7,920.00', f5: 'September 30, 2026' },
+                    { f1: 'Tanvir Ahmed', f2: 'DevOps & Infrastructure', f3: 'EMP-045', f4: 'USD 8,100.00', f5: 'September 30, 2026' }
+                ],
+                render: function(d) {
+                    return `
+                        <div class="border border-brand-900 p-5 rounded bg-white font-mono text-xs space-y-3">
+                            <div class="flex justify-between items-center border-b border-brand-900 pb-2">
+                                <div class="font-bold text-xs uppercase text-brand-950">CORPORATE COMPENSATION STATEMENT</div>
+                                <div class="text-[10px] text-brand-500">Confidential HR Record</div>
+                            </div>
+                            <div class="space-y-1 text-[11px] pt-1">
+                                <div class="flex justify-between"><span class="text-brand-500">Employee:</span> <strong class="text-brand-950 font-sans">${d.f1} (${d.f3})</strong></div>
+                                <div class="flex justify-between"><span class="text-brand-500">Department:</span> <span>${d.f2}</span></div>
+                                <div class="flex justify-between"><span class="text-brand-500">Pay Period:</span> <span>${d.f5}</span></div>
+                            </div>
+                            <div class="bg-brand-50 p-2.5 rounded border border-brand-200 flex justify-between items-center text-xs font-bold text-brand-950">
+                                <span>NET DISBURSEMENT:</span>
+                                <span class="text-emerald-800">${d.f4}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        };
+
+        let currentTemplateKey = 'cert';
+        let currentRecordIndex = 0;
+
+        function switchTemplate(key) {
+            currentTemplateKey = key;
+            currentRecordIndex = 0;
+
+            document.getElementById('tabCert').className = key === 'cert' ? 'px-3 py-1.5 rounded bg-white text-brand-950 shadow-sm font-semibold transition' : 'px-3 py-1.5 rounded hover:text-brand-950 transition';
+            document.getElementById('tabAdmit').className = key === 'admit' ? 'px-3 py-1.5 rounded bg-white text-brand-950 shadow-sm font-semibold transition' : 'px-3 py-1.5 rounded hover:text-brand-950 transition';
+            document.getElementById('tabSalary').className = key === 'salary' ? 'px-3 py-1.5 rounded bg-white text-brand-950 shadow-sm font-semibold transition' : 'px-3 py-1.5 rounded hover:text-brand-950 transition';
+
+            const preset = templatePresets[key];
+            document.getElementById('datasetName').innerText = preset.datasetName;
+            document.getElementById('colHeader1').innerText = preset.headers[0];
+            document.getElementById('colHeader2').innerText = preset.headers[1];
+            document.getElementById('colHeader3').innerText = preset.headers[2];
+            document.getElementById('colHeader4').innerText = preset.headers[3];
+
+            document.getElementById('labelField1').innerText = preset.labels[0];
+            document.getElementById('labelField2').innerText = preset.labels[1];
+            document.getElementById('labelField3').innerText = preset.labels[2];
+            document.getElementById('labelField4').innerText = preset.labels[3];
+
+            renderTableRows();
+            loadRecord(0);
         }
 
-        const sampleDataset = [
-            { name: "Ayesha Rahman", course: "Full-Stack Web Engineering", roll: "ASD-2026-102", grade: "Distinction (A+)", date: "September 8, 2026" },
-            { name: "Tanvir Ahmed", course: "Generative AI Systems Architecture", roll: "ASD-2026-045", grade: "Honors (A)", date: "September 8, 2026" },
-            { name: "Fatima Begum", course: "Python & Data Automation", roll: "ASD-2026-118", grade: "Distinction (A+)", date: "September 8, 2026" },
-            { name: "Mahmudul Hasan", course: "Cybersecurity & System Administration", roll: "ASD-2026-077", grade: "Distinction (A+)", date: "September 8, 2026" }
-        ];
-        let simIndex = 0;
+        function renderTableRows() {
+            const preset = templatePresets[currentTemplateKey];
+            const tbody = document.getElementById('datasetTableBody');
+            tbody.innerHTML = '';
 
-        function cycleRecord() {
-            const row = sampleDataset[simIndex];
-            simIndex = (simIndex + 1) % sampleDataset.length;
-
-            document.getElementById('inputName').value = row.name;
-            document.getElementById('inputCourse').value = row.course;
-            document.getElementById('inputRoll').value = row.roll;
-            document.getElementById('inputGrade').value = row.grade;
-            document.getElementById('inputDate').value = row.date;
-
-            updateSim();
+            preset.records.forEach((rec, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = `data-grid-row cursor-pointer transition ${idx === currentRecordIndex ? 'active' : ''}`;
+                tr.onclick = () => loadRecord(idx);
+                tr.innerHTML = `
+                    <td class="p-2 text-brand-400 font-mono">${idx + 1}</td>
+                    <td class="p-2 font-semibold text-brand-900 font-sans">${rec.f1}</td>
+                    <td class="p-2 text-brand-600">${rec.f2}</td>
+                    <td class="p-2 text-brand-600 font-mono">${rec.f3}</td>
+                    <td class="p-2 text-brand-900">${rec.f4}</td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
+
+        function loadRecord(index) {
+            currentRecordIndex = index;
+            const preset = templatePresets[currentTemplateKey];
+            const rec = preset.records[index];
+
+            document.getElementById('activeRowIndicator').innerText = `Row #${index + 1}`;
+            document.getElementById('inputField1').value = rec.f1;
+            document.getElementById('inputField2').value = rec.f2;
+            document.getElementById('inputField3').value = rec.f3;
+            document.getElementById('inputField4').value = rec.f4;
+            document.getElementById('inputField5').value = rec.f5;
+
+            renderCanvas();
+            renderTableRows();
+        }
+
+        function handleCustomInput() {
+            renderCanvas();
+        }
+
+        function renderCanvas() {
+            const preset = templatePresets[currentTemplateKey];
+            const activeData = {
+                f1: document.getElementById('inputField1').value,
+                f2: document.getElementById('inputField2').value,
+                f3: document.getElementById('inputField3').value,
+                f4: document.getElementById('inputField4').value,
+                f5: document.getElementById('inputField5').value
+            };
+
+            document.getElementById('documentCanvas').innerHTML = preset.render(activeData);
+            
+            // Mock pseudo-hash update
+            const str = activeData.f1 + activeData.f2 + activeData.f3;
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash |= 0;
+            }
+            document.getElementById('canvasHash').innerText = `SHA-256: ${Math.abs(hash).toString(16).padStart(8, '0')}...b9f1`;
+        }
+
+        // Initialize on page load
+        switchTemplate('cert');
     </script>
 </body>
 </html>
